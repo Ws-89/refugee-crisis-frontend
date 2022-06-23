@@ -1,0 +1,9 @@
+<div style="height: 100%;">
+    <section class="display-movie" *ngIf="deliveryAddress$ | async as deliveryAddress">
+        <mat-card style="height: 300px; width: 300px;">
+            <h1> {{deliveryAddress.postCode}} </h1>
+            <h2> {{ deliveryAddress.street  }} </h2>
+            <h3> {{ deliveryAddress.city }} million </h3>
+        </mat-card>
+    </section>
+</div>

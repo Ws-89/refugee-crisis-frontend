@@ -1,0 +1,31 @@
+<div style="padding: 20px;">
+    <div style="padding: 20px;">
+      <h2>Create address</h2>
+      <form class="example-form">
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Post code</mat-label>
+                <input name='postCode' [(ngModel)]="newDeliveryAddress.postCode" matInput>
+              </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>City</mat-label>
+                <input name='city' [(ngModel)]="newDeliveryAddress.city" matInput>
+              </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Street</mat-label>
+                <input name='street' [(ngModel)]="newDeliveryAddress.street" matInput>
+              </mat-form-field>
+        </div>
+        
+        <button (click)="addNewDeliveryAddress()" style="margin-left: 33%;" mat-raised-button color="primary">Add address</button>
+      </form>
+    </div>
+    <mat-divider></mat-divider>
+    <div style="padding: 20px;">
+        <app-delivery-address-list></app-delivery-address-list>
+    </div>
+  </div>
