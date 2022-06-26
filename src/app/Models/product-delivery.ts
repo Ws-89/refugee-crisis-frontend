@@ -11,7 +11,7 @@ export class ProductDelivery {
     deliveryHistory: DeliveryHistory;
     deliverySpecification: DeliverySpecification;
     products: Product[];
-    customer: Customer;
+    
 
     constructor(
         deliveryId?: number,
@@ -20,16 +20,16 @@ export class ProductDelivery {
         totalWeight?: number,
         deliveryHistory?: DeliveryHistory,
         deliverySpecification?: DeliverySpecification,
-        products?: Product[],
-        customer?: Customer
+        products?: Product[]
+        
     ){
         this.deliveryId = deliveryId || null;
         this.description = description || '';
         this.capacity = capacity || 0;
         this.totalWeight = totalWeight || 0;
-        this.deliveryHistory = deliveryHistory || null;
-        this.deliverySpecification = deliverySpecification || null;
+        this.deliveryHistory = deliveryHistory || new DeliveryHistory();
+        this.deliverySpecification = deliverySpecification || new DeliverySpecification();
         this.products = products || new Array<Product>();
-        this.customer = customer || null;
+        
     }
 }

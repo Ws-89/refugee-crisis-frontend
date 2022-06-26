@@ -1,4 +1,4 @@
-<div style="padding: 20px;">
+<div mat-dialog-content style="padding: 20px;">
     <div style="padding: 20px;">
         <h2>Create product</h2>
         <form class="example-form">
@@ -84,6 +84,6 @@
     
     <mat-divider></mat-divider>
     <div style="padding: 20px;">
-        <app-product-list></app-product-list>
+        <app-product-list-dialog (selectProduct)="selectProduct($event)"></app-product-list-dialog>
     </div>
 </div>

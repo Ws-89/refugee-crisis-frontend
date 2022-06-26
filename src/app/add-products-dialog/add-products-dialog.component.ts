@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { FoodType } from '../Models/foodType.enum';
 import { Product } from '../Models/product';
 import { ProductState } from '../Models/productState.enum';
 import { ProductType } from '../Models/productType.enum';
-import { addProduct,  getProducts, logout } from '../Store/Actions/product.action';
+import { addProduct, getProducts, logout } from '../Store/Actions/product.action';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css'],
+  selector: 'app-add-products-dialog',
+  templateUrl: './add-products-dialog.component.html',
+  styleUrls: ['./add-products-dialog.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class AddProductsDialogComponent implements OnInit {
   productTypes = ProductType;
   productTypeKeys: any = [];
   // foodTypes = FoodType;
@@ -26,7 +26,8 @@ export class ProductsComponent implements OnInit {
   newProduct: Product = new Product();
   products: Product[] = [];
   title = 'products';
-  constructor(private store: Store) {}
+  constructor(private store: Store, private dialogRef: MatDialogRef<AddProductsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data: any) {}
 
   ngOnInit(): void {
     this.productTypeKeys = Object.keys(this.productTypes)
@@ -37,16 +38,16 @@ export class ProductsComponent implements OnInit {
     this.getAllProducts();
   }
 
+  selectProduct(product: Product){
+    this.dialogRef.close(product);
+  }
+
   getAllProducts(): void {
     this.store.dispatch(getProducts());
   }
 
   addNewProducts(): void {
-    this.store.dispatch(addProduct(this.newProduct));
+    this.dialogRef.close(this.newProduct);
   }
-
-  logout(): void {
-    this.store.dispatch(logout());
-  }
-  
 }
+

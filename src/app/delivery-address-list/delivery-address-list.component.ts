@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,12 +14,13 @@ import { deliveryAddressSelector } from '../Store/Selector/delivery-address.sele
   styleUrls: ['./delivery-address-list.component.css']
 })
 export class DeliveryAddressListComponent implements OnInit {
-  
   deliveryAddresses$ = this.store.pipe(select(deliveryAddressSelector))
   deliveryAddresses: DeliveryAddress[];
   done = new Subject();
   selectedIndex: number = null;
   street: string = '';
+  
+  @Output() selectDeliveryAddress:EventEmitter<any> = new EventEmitter();
 
   constructor(private store: Store<DeliveryAddressState>) { }
     
@@ -27,6 +28,11 @@ export class DeliveryAddressListComponent implements OnInit {
     this.deliveryAddresses$
       .pipe(takeUntil(this.done))
       .subscribe((data) => (this.deliveryAddresses = JSON.parse(JSON.stringify(data))));
+    
+  }
+
+  select(deliveryAddress: DeliveryAddress): void {
+    this.selectDeliveryAddress.emit(deliveryAddress)
   }
 
   enableEdit(deliveryAddress: DeliveryAddress, index: number): void {

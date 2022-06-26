@@ -1,4 +1,4 @@
-<div class="movies">
+<div class="delivery-address-list">
     <section *ngFor="let deliveryAddress of deliveryAddresses$ | async; let i = index">
         <mat-card style="position: relative;">
             <div style="position: absolute; right: 20px">
@@ -6,7 +6,7 @@
                     <mat-icon (click)="enableEdit(deliveryAddress, i)">edit</mat-icon>
                 </button>
             </div>
-            <h1> {{deliveryAddress.postCode}} </h1>
+            <h1> {{deliveryAddress.deliveryAddressId}} </h1>
             <h2> {{ deliveryAddress.city }} </h2>
             <ng-template #ear><h3> ${{ deliveryAddress.street }} </h3></ng-template>
             <mat-form-field *ngIf="i === selectedIndex; else ear" class="example-full-width" appearance="fill">
@@ -17,7 +17,7 @@
                 <button mat-button (click)="delete(deliveryAddress.deliveryAddressId)">Delete</button>
                 <button mat-button *ngIf="i === selectedIndex" (click)="update(deliveryAddress)">Update</button>
                 <button mat-button *ngIf="i === selectedIndex" (click)="cancelEdit()">Cancel</button>
-                <button mat-button routerLink='/delivery-address/{{deliveryAddress.deliveryAddressId}}'>Details</button>
+                <button mat-button (click)="select(deliveryAddress)">Select this address</button>
             </mat-card-actions>
         </mat-card>
     </section>

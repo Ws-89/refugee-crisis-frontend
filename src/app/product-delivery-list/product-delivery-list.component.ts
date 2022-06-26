@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { ProductDelivery } from '../Models/product-delivery';
-import { ProductDeliveryService } from '../Service/product-delivery.service';
 import { ProductDeliveryState } from '../Store/Reducers/product-delivery.reducers';
 import { productDeliverySelector } from '../Store/Selector/product-delivery.selector';
 import { takeUntil } from 'rxjs/operators';

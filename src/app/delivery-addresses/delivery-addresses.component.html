@@ -24,8 +24,12 @@
         <button (click)="addNewDeliveryAddress()" style="margin-left: 33%;" mat-raised-button color="primary">Add address</button>
       </form>
     </div>
-    <mat-divider></mat-divider>
     <div style="padding: 20px;">
-        <app-delivery-address-list></app-delivery-address-list>
+      
+      <mat-dialog-actions style="margin-bottom: 2%">
+          <button class="mat-raised-button"(click)="close()">Close</button>
+      </mat-dialog-actions>
+    <mat-divider></mat-divider>
+        <app-delivery-address-list (selectDeliveryAddress)="selectDeliveryAddress($event)"></app-delivery-address-list>
     </div>
   </div>

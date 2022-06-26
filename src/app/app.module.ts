@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModules } from './app.material.module';;
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -35,6 +35,9 @@ import { ProductDeliveryEffects } from './Store/Effects/product-delivery.effects
 import { ProductDeliveryComponent } from './product-delivery/product-delivery.component';
 import { reducers, metaReducers } from './Store/reducers';
 import { DeliveryAddressComponent } from './delivery-address/delivery-address.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddProductsDialogComponent } from './add-products-dialog/add-products-dialog.component';
+import { ProductListDialogComponent } from './product-list-dialog/product-list-dialog.component';
 
 
 @NgModule({
@@ -48,8 +51,11 @@ import { DeliveryAddressComponent } from './delivery-address/delivery-address.co
     DeliveryAddressesComponent,
     ProductDeliveriesComponent,
     DeliveryAddressComponent,
-    ProductDeliveryComponent
+    ProductDeliveryComponent,
+    AddProductsDialogComponent,
+    ProductListDialogComponent
   ],
+  // entryComponents: [ModalFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -63,6 +69,8 @@ import { DeliveryAddressComponent } from './delivery-address/delivery-address.co
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
+    MatDialogModule,
+    ReactiveFormsModule,
     
     StoreModule.forRoot(
       reducers, { runtimeChecks: {

@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Subject, } from 'rxjs';
 import { Product } from '../Models/product';
 import { ProductState } from '../Store/Reducers/product.reducers';
-import {  productSelector } from '../Store/Selector/product.selector';
+import { productSelector } from '../Store/Selector/product.selector';
 import { takeUntil } from 'rxjs/operators';
 import { deleteProduct,  updateProduct } from '../Store/Actions/product.action';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-product-list-dialog',
+  templateUrl: './product-list-dialog.component.html',
+  styleUrls: ['./product-list-dialog.component.css']
 })
-
-export class ProductListComponent implements OnInit {
+export class ProductListDialogComponent implements OnInit {
   done = new Subject();
   selectedIndex: number = null;
   products$ = this.store.pipe(select(productSelector))
   weight = 0;
   products: Product[];
  
+  @Output() selectProduct:EventEmitter<any> = new EventEmitter();
+
   constructor(private store: Store<ProductState>) { }
 
 
@@ -28,7 +29,11 @@ export class ProductListComponent implements OnInit {
       .pipe(takeUntil(this.done))
       .subscribe((data) => (this.products = JSON.parse(JSON.stringify(data))));
     }
-  
+
+  select(product: Product): void{
+    this.selectProduct.emit(product);
+  } 
+
   enableEdit(product: Product, index: number): void {
     console.log(product)
     this.selectedIndex = index;
@@ -57,4 +62,3 @@ export class ProductListComponent implements OnInit {
     this.done.complete();
   }
 }
-
