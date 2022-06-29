@@ -1,0 +1,43 @@
+
+
+<div style="padding: 20px;">
+    <div style="padding: 20px;">
+      <h2>Create product delivery</h2>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Description</mat-label>
+          <input name='name' [(ngModel)]="newProductDelivery.description" matInput>
+        </mat-form-field>
+
+        <div>{{ (maximumCapacity$ | async )}}</div>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Total weight</mat-label>
+            <input name='earning' [(ngModel)]="newProductDelivery.totalWeight" type='number' matInput placeholder="In million">
+          </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Arrival time</mat-label>
+            <input name='expirationDate' [(ngModel)]="newDeliverySpecification.arrivalTime" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button (click)="openAddressDialog()">Add delivery address</button>
+        </div>
+        
+        <div>
+          <button mat-raised-button (click)="openProductDialog()" style="margin-top: 3%;">Add product</button>
+        </div>
+        <div>
+          <button (click)="addNewProductDelivery()" style="margin-top: 3%;" mat-raised-button color="primary">Add Product delivery</button>
+        </div>
+        
+      </form>
+    </div>
+    <mat-divider></mat-divider>
+    <div style="padding: 20px;">
+        <app-product-delivery-list></app-product-delivery-list>
+    </div>
+  </div>
+

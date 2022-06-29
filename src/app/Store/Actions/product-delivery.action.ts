@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { ProductDelivery } from 'src/app/Models/product-delivery';
 
-export const getProductDeliveries = createAction(
+export const getProductDeliveryList = createAction(
   '[ProductDelivery] Get product deliveries');
 
-export const getProductDeliveriesSuccess = createAction(
+export const getProductDeliveryListSuccess = createAction(
   '[ProductDelivery] Get product deliveries success',
   (productDeliveries: ReadonlyArray<ProductDelivery>) => ({ productDeliveries })
 );

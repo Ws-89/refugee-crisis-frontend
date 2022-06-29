@@ -13,7 +13,7 @@ export class ProductDeliveryService {
   private baseUrl = environment.baseUrl;
   constructor(private http: HttpClient) {}
 
-  getProductDeliveries(): Observable<ReadonlyArray<ProductDelivery>> {
+  getProductDeliveryList(): Observable<ReadonlyArray<ProductDelivery>> {
     return this.http.get<ReadonlyArray<ProductDelivery>>(`${this.baseUrl}/${this.url}/list`).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);

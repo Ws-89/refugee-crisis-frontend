@@ -1,0 +1,94 @@
+<div mat-dialog-content style="padding: 20px;">
+    <div style="padding: 20px;">
+        <h2>Create product</h2>
+        <form class="example-form">
+            <mat-form-field appearance="fill">
+                <mat-label>Product type</mat-label>
+                <mat-select [(ngModel)]="newProduct.category.categoryName" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let item of productTypeKeys" [value]="item" >{{item}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            <div *ngIf="newProduct.category.categoryName == 'Food'">
+                <mat-form-field appearance="fill">
+                    <mat-label>Food group</mat-label>
+                    <mat-select [(ngModel)]="newProduct.category.attr1Caption" [ngModelOptions]="{standalone: true}">
+                        <mat-option *ngFor="let item of foodTypeKeys" [value]="item" >{{item}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div *ngIf="newProduct.category.categoryName == 'Medical'">
+                <mat-form-field appearance="fill">
+                    <mat-label>Medical purpose</mat-label>
+                    <mat-select [(ngModel)]="newProduct.category.attr1Caption" [ngModelOptions]="{standalone: true}">
+                        <mat-option *ngFor="let item of medicalPurposeKeys" [value]="item" >{{item}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div *ngIf="newProduct.category.categoryName == 'Hygiene'">
+                <mat-form-field appearance="fill">
+                    <mat-label>Hygiene purpose</mat-label>
+                    <mat-select [(ngModel)]="newProduct.category.attr1Caption" [ngModelOptions]="{standalone: true}">
+                        <mat-option *ngFor="let item of hygienePurposeKeys" [value]="item" >{{item}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Is fragile?</mat-label>
+                    <mat-select [(ngModel)]="newProduct.fragile" [ngModelOptions]="{standalone: true}">
+                      <mat-option value="true">True</mat-option>
+                      <mat-option value="false">False</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Product state</mat-label>
+                    <mat-select [(ngModel)]="newProduct.state" [ngModelOptions]="{standalone: true}">
+                        <mat-option *ngFor="let item of productStateKeys" [value]="item" >{{item}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Product name</mat-label>
+                <input name='name' [(ngModel)]="newProduct.name" matInput>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Transportation instruction</mat-label>
+                <input name='name' [(ngModel)]="newProduct.category.attr2Caption" matInput>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Product additional description</mat-label>
+                <input name='name' [(ngModel)]="newProduct.description" matInput>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Total weight</mat-label>
+                <input name='weight' [(ngModel)]="newProduct.weight" type='number' matInput placeholder="In kg">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Ammount</mat-label>
+                <input name='amount' [(ngModel)]="newProduct.amount" type='number' matInput placeholder="If countable">
+            </mat-form-field>
+            
+            <mat-form-field appearance="fill">
+                <mat-label>Expiration date</mat-label>
+                <input name='expirationDate' [(ngModel)]="newProduct.expirationDate" matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div>
+                <button (click)="addNewProducts()" mat-raised-button color="primary">Add
+                    Product</button>
+            </div>
+        </form>
+    </div>
+    
+    <mat-divider></mat-divider>
+    <div style="padding: 20px;">
+        <app-product-list-dialog (selectProduct)="selectProduct($event)"></app-product-list-dialog>
+    </div>
+</div>

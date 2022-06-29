@@ -1,0 +1,24 @@
+<div class="product-delivery-list">
+            <section *ngFor="let productDelivery of productDeliveries$ | async;let i = index">
+                <mat-card style="position: relative;">
+                    <div style="position: absolute; right: 20px">
+                        <button mat-icon-button>
+                            <mat-icon (click)="enableEdit(productDelivery, i)">edit</mat-icon>
+                        </button>
+                    </div>
+                    <h1> {{ productDelivery.description }} </h1>
+                    <ng-template #ear><h3> {{ productDelivery.totalWeight }} kilograms </h3></ng-template>
+                    <mat-form-field *ngIf="i === selectedIndex; else ear" class="example-full-width" appearance="fill">
+                        <mat-label>Capacity</mat-label>
+                        <input matInput type="number" placeholder="In kilograms" [(ngModel)]="totalWeight">
+                    </mat-form-field>
+                    <mat-card-actions>
+                        <button mat-button (click)="delete(productDelivery.deliveryId)">Delete</button>
+                        <button mat-button *ngIf="i === selectedIndex" (click)="update(productDelivery)">Update</button>
+                        <button mat-button *ngIf="i === selectedIndex" (click)="cancelEdit()">Cancel</button>
+                        <button mat-button routerLink='/product-delivery/{{productDelivery.deliveryId}}'>Details</button>
+                    </mat-card-actions>
+                </mat-card>
+            </section>
+        </div>
+        

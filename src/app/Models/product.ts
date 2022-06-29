@@ -1,3 +1,4 @@
+import { Category } from "./product-category";
 import { ProductState } from "./productState.enum";
 import { ProductType } from "./productType.enum";
 import { Status } from "./status.enum";
@@ -6,7 +7,6 @@ export class Product {
     productId : number;
     name: string;
     expirationDate: Date;
-    category: string;
     description: string;
     weight : number;
     amount: number;
@@ -14,13 +14,13 @@ export class Product {
     state: ProductState;
     reserved: Status;
     productType: ProductType;
+    category: Category;
    
 
     constructor(
         productId?: number,
         name?: string,
         expirationDate?: Date,
-        category?: string,
         description?: string,
         weight?: number,
         amount?: number,
@@ -28,11 +28,11 @@ export class Product {
         reserved?: Status,
         state?: ProductState,
         productType?: ProductType,
+        category?: Category
       ) {
         this.productId = productId || null;
         this.name = name || '';
         this.expirationDate = expirationDate || new Date();
-        this.category = category || '';
         this.description = description || '';
         this.weight = weight || 0;
         this.amount = amount || 0;
@@ -40,5 +40,6 @@ export class Product {
         this.reserved = Status.Available;
         this.state = state || null;
         this.productType = productType || null;
+        this.category = category || new Category;
     }
 }

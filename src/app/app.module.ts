@@ -12,7 +12,6 @@ import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { ProductsComponent } from './products/products.component';
 import { RouterSerializer } from './Store/routerSerializer';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -21,39 +20,51 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import { productReducer } from './Store/Reducers/product.reducers';
-import { ProductListComponent } from './product-list/product-list.component';
+import { ProductListComponent } from './products-management/product-list/product-list.component';
 import { ProductEffects } from './Store/Effects/product.effects';
-import { ProductComponent } from './product/product.component';
+import { ProductComponent } from './products-management/product/product.component';
 import { DeliveryAddressEffects } from './Store/Effects/delivery-address.effects';
 import { deliveryAddressReducer } from './Store/Reducers/delivery-address.reducers';
 import { productDeliveryReducer } from './Store/Reducers/product-delivery.reducers';
-import { ProductDeliveryListComponent } from './product-delivery-list/product-delivery-list.component';
-import { DeliveryAddressListComponent } from './delivery-address-list/delivery-address-list.component';
-import { DeliveryAddressesComponent } from './delivery-addresses/delivery-addresses.component';
-import { ProductDeliveriesComponent } from './product-deliveries/product-deliveries.component';
+import { ProductDeliveryListComponent } from './product-delivery-management/product-delivery-list/product-delivery-list.component';
+import { DeliveryAddressListComponent } from './product-delivery-management/delivery-address-list/delivery-address-list.component';
+import { DeliveryAddressesComponent } from './product-delivery-management/delivery-addresses/delivery-addresses.component';
+import { ProductDeliveryFormComponent } from './product-delivery-management/product-delivery-form/product-delivery-form.component';
 import { ProductDeliveryEffects } from './Store/Effects/product-delivery.effects';
-import { ProductDeliveryComponent } from './product-delivery/product-delivery.component';
+import { ProductDeliveryComponent } from './product-delivery-management/product-delivery/product-delivery.component';
 import { reducers, metaReducers } from './Store/reducers';
-import { DeliveryAddressComponent } from './delivery-address/delivery-address.component';
+import { DeliveryAddressComponent } from './product-delivery-management/delivery-address/delivery-address.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AddProductsDialogComponent } from './add-products-dialog/add-products-dialog.component';
-import { ProductListDialogComponent } from './product-list-dialog/product-list-dialog.component';
+import { AddProductsDialogComponent } from './product-delivery-management/add-products-dialog/add-products-dialog.component';
+import { ProductListDialogComponent } from './product-delivery-management/product-list-dialog/product-list-dialog.component';
+import { ProductsFormComponent } from './products-management/products-form/products-form.component';
+import { VehiclesFormComponent } from './vehicles-management/vehicles-form/vehicles-form.component';
+import { VehiclesListComponent } from './vehicles-management/vehicles-list/vehicles-list.component';
+import { VehicleEffects } from './Store/Effects/vehicle.effects';
+import { HandlingEventsFormComponent } from './handling-events-management/handling-events-form/handling-events-form.component';
+import { ProductDeliveriesListComponent } from './handling-events-management/product-deliveries-list/product-deliveries-list.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent,
+    ProductsFormComponent,
     ProductListComponent,
     ProductComponent,
     ProductDeliveryListComponent,
     DeliveryAddressListComponent,
     DeliveryAddressesComponent,
-    ProductDeliveriesComponent,
+    ProductDeliveryFormComponent,
     DeliveryAddressComponent,
     ProductDeliveryComponent,
     AddProductsDialogComponent,
-    ProductListDialogComponent
+    ProductListDialogComponent,
+    VehiclesFormComponent,
+    VehiclesListComponent,
+    HandlingEventsFormComponent,
+    ProductDeliveriesListComponent
+    
   ],
   // entryComponents: [ModalFormComponent],
   imports: [
@@ -81,7 +92,7 @@ import { ProductListDialogComponent } from './product-list-dialog/product-list-d
         strictActionWithinNgZone: true,
         strictActionTypeUniqueness: true,
       }, metaReducers }),
-    EffectsModule.forRoot([ProductEffects, DeliveryAddressEffects, ProductDeliveryEffects]),
+    EffectsModule.forRoot([ProductEffects, DeliveryAddressEffects, ProductDeliveryEffects, VehicleEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
