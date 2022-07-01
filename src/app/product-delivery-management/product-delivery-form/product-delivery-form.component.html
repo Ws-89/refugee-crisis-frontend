@@ -23,10 +23,13 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <div>
-          <button mat-raised-button (click)="openAddressDialog()">Add delivery address</button>
+          <button mat-raised-button (click)="openAddAddressDialog()">Add address</button>
         </div>
         <div>
-          <button mat-raised-button (click)="openStartingAddressDialog()" style="margin-top: 3%;">Add starting address</button>
+          <button mat-raised-button (click)="openStartingAddressDialog()" style="margin-top: 3%;">Select starting address</button>
+        </div>
+        <div>
+          <button mat-raised-button (click)="openDeliveryAddressDialog()" style="margin-top: 3%;">Select delivery address</button>
         </div>
         <div>
           <button mat-raised-button (click)="openProductDialog()" style="margin-top: 3%;">Add product</button>

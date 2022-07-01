@@ -1,0 +1,53 @@
+<!-- <div class="delivery-address-list">
+    <section *ngFor="let transportMovement of transportMovements$ | async; let i = index">
+        <mat-card style="position: relative;">
+            <div style="position: absolute; right: 20px">
+                <button mat-icon-button>
+                    <mat-icon (click)="enableEdit(deliveryAddress, i)">edit</mat-icon>
+                </button>
+            </div>
+            <h1> {{transportMovement.transportMovementId}} </h1>
+            <mat-form-field *ngIf="i === selectedIndex; else ear" class="example-full-width" appearance="fill">
+                <mat-label>Street</mat-label>
+                <input placeholder="Street name" [(ngModel)]="street">
+            </mat-form-field>
+            <mat-card-actions>
+                <button mat-button (click)="delete(transportMovement.transportMovementId)">Delete</button>
+                <button mat-button *ngIf="i === selectedIndex" (click)="update(deliveryAddress)">Update</button>
+                <button mat-button *ngIf="i === selectedIndex" (click)="cancelEdit()">Cancel</button>
+                <button mat-button (click)="selectDeliveryAddress(deliveryAddress)">Select this address</button>
+            </mat-card-actions>
+        </mat-card>
+    </section>
+</div> -->
+
+<div class="container">
+    <div class="row">
+        <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
+            <thead>
+                <tr>
+                    <th class="col">Full Name</th>
+                    <th class="col">Age</th>
+                    <th class="col">Job Title</th>
+                    <th class="col">Location</th>
+                    <th class="col">Delete</th>
+                    <th class="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody >
+                <ng-container  *ngFor="let transportMovement of transportMovements$ | async; let i = index">
+                    <tr>
+                        <td class="col">{{ transportMovement.transportMovementId }}</td>
+                        <td class="col">{{ transportMovement.deliverySpecification.deliverySpecificationId }}</td>
+                        <td class="col">{{ transportMovement.startingAddress.city }}</td>
+                        <td class="col">{{ transportMovement.vehicle.brand }}</td>
+                        <button mat-button (click)="delete(transportMovement.transportMovementId)">Delete</button>
+                        <button mat-button *ngIf="i === selectedIndex" (click)="cancelEdit()">Cancel</button>
+                        <button mat-button (click)="selectTransport(transportMovement)">Select this product</button>
+                    </tr>
+                </ng-container>
+                
+            </tbody>
+        </table>
+    </div>
+</div>

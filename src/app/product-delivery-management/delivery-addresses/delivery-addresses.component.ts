@@ -22,15 +22,7 @@ export class DeliveryAddressesComponent implements OnInit {
 
     }
   ngOnInit(): void {
-    this.getAllDeliveryAddresses();
-  }
 
-  selectDeliveryAddress(deliveryAddress: DeliveryAddress){
-    this.dialogRef.close(deliveryAddress);
-  }
-
-  getAllDeliveryAddresses(): void {
-    this.store.dispatch(getDeliveryAddresses());
   }
 
   addNewDeliveryAddress(): void {

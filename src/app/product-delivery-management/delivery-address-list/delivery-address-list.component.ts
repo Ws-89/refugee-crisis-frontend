@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -19,10 +20,9 @@ export class DeliveryAddressListComponent implements OnInit {
   done = new Subject();
   selectedIndex: number = null;
   street: string = '';
-  
-  @Output() selectDeliveryAddress:EventEmitter<any> = new EventEmitter();
 
-  constructor(private store: Store<DeliveryAddressState>) { }
+  constructor(private store: Store<DeliveryAddressState>, private dialogRef: MatDialogRef<DeliveryAddressListComponent>,
+    @Inject(MAT_DIALOG_DATA) data: any) { }
     
   ngOnInit(): void {
     this.deliveryAddresses$
@@ -30,8 +30,8 @@ export class DeliveryAddressListComponent implements OnInit {
       .subscribe((data) => (this.deliveryAddresses = JSON.parse(JSON.stringify(data))));
   }
 
-  select(deliveryAddress: DeliveryAddress): void {
-    this.selectDeliveryAddress.emit(deliveryAddress)
+  selectDeliveryAddress(deliveryAddress: DeliveryAddress){
+    this.dialogRef.close(deliveryAddress);
   }
 
   enableEdit(deliveryAddress: DeliveryAddress, index: number): void {

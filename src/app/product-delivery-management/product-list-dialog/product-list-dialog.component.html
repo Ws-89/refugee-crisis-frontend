@@ -17,7 +17,6 @@
                 <button mat-button (click)="deleteProduct(product.productId)">Delete</button>
                 <button mat-button *ngIf="i === selectedIndex" (click)="update(product)">Update</button>
                 <button mat-button *ngIf="i === selectedIndex" (click)="cancelEdit()">Cancel</button>
-                <!-- <button mat-button routerLink='/products/{{product.productId}}'>Details</button> -->
                 <button mat-button (click)="select(product)">Select this product</button>
             </mat-card-actions>
         </mat-card>

@@ -45,6 +45,7 @@ export class ProductsFormComponent implements OnInit {
   }
 
   addNewProducts(): void {
+    console.log('dodany produkt ',this.newProduct)
     this.store.dispatch(addProduct(this.newProduct));
   }
 

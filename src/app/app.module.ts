@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,8 +41,13 @@ import { ProductsFormComponent } from './products-management/products-form/produ
 import { VehiclesFormComponent } from './vehicles-management/vehicles-form/vehicles-form.component';
 import { VehiclesListComponent } from './vehicles-management/vehicles-list/vehicles-list.component';
 import { VehicleEffects } from './Store/Effects/vehicle.effects';
-import { HandlingEventsFormComponent } from './handling-events-management/handling-events-form/handling-events-form.component';
-import { ProductDeliveriesListComponent } from './handling-events-management/product-deliveries-list/product-deliveries-list.component';
+import { VehicleComponent } from './vehicles-management/vehicle/vehicle.component';
+import { TransportMovementFormComponent } from './transport-movement-management/transport-movement-form/transport-movement-form.component';
+import { VehiclesComponent } from './transport-movement-management/vehicles/vehicles.component';
+import { ProductTransportComponent } from './transport-movement-management/product-transport/product-transport.component';
+import { AddVehicleDialogComponent } from './transport-movement-management/add-vehicle-dialog/add-vehicle-dialog.component';
+import { TransportMovementListComponent } from './transport-movement-management/transport-movement-list/transport-movement-list.component';
+import { TransportMovementEffects } from './Store/Effects/transport-movement.effects';
 
 
 
@@ -62,9 +67,12 @@ import { ProductDeliveriesListComponent } from './handling-events-management/pro
     ProductListDialogComponent,
     VehiclesFormComponent,
     VehiclesListComponent,
-    HandlingEventsFormComponent,
-    ProductDeliveriesListComponent
-    
+    VehicleComponent,
+    TransportMovementFormComponent,
+    VehiclesComponent,
+    ProductTransportComponent,
+    AddVehicleDialogComponent,
+    TransportMovementListComponent,
   ],
   // entryComponents: [ModalFormComponent],
   imports: [
@@ -92,7 +100,7 @@ import { ProductDeliveriesListComponent } from './handling-events-management/pro
         strictActionWithinNgZone: true,
         strictActionTypeUniqueness: true,
       }, metaReducers }),
-    EffectsModule.forRoot([ProductEffects, DeliveryAddressEffects, ProductDeliveryEffects, VehicleEffects]),
+    EffectsModule.forRoot([ProductEffects, DeliveryAddressEffects, ProductDeliveryEffects, VehicleEffects, TransportMovementEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

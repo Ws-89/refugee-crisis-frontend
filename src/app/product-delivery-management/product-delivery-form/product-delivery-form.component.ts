@@ -14,6 +14,9 @@ import { Product } from 'src/app/Models/product';
 import { getMaxiumCapacity } from 'src/app/Store/Actions/vehicle.action';
 import { maxiumumCapacitySelector } from 'src/app/Store/Selector/vehicle.selector';
 import { MaxiumCapacityState } from 'src/app/Store/Reducers/vehicle.reducers';
+import { addDeliveryAddress, getDeliveryAddresses } from 'src/app/Store/Actions/delivery-address.action';
+import { DeliveryAddressListComponent } from '../delivery-address-list/delivery-address-list.component';
+import { DeliveryAddress } from 'src/app/Models/delivery-address';
 
 
 @Component({
@@ -31,24 +34,14 @@ export class ProductDeliveryFormComponent implements OnInit {
   ngOnInit(): void {
     this.getAllProductDeliveries();
     this.getMaxiumCapacity();
+    this.getAllDeliveryAddresses();
   }
 
-  openAddressDialog(){
+  openAddAddressDialog(){
     let dialogRef = this.dialog.open(DeliveryAddressesComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.newProductDelivery = Object.assign({}, this.newProductDelivery, { deliverySpecification: { 
-        deliveryAddress: {...result}
-      }})
-    })
-  }
-
-  openStartingAddressDialog(){
-    let dialogRef = this.dialog.open(DeliveryAddressesComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.newProductDelivery = Object.assign({}, this.newProductDelivery, { startingAddress:  {...result}
-      })
+      this.addNewDeliveryAddress(result)
     })
   }
 
@@ -61,6 +54,25 @@ export class ProductDeliveryFormComponent implements OnInit {
     })
   }
 
+  openDeliveryAddressDialog(){
+    let dialogRef = this.dialog.open(DeliveryAddressListComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.newProductDelivery = Object.assign({}, this.newProductDelivery, { deliverySpecification: { 
+        deliveryAddress: {...result}
+      }})
+    })
+  }
+
+  openStartingAddressDialog(){
+    let dialogRef = this.dialog.open(DeliveryAddressListComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.newProductDelivery = Object.assign({}, this.newProductDelivery, { startingAddress:  {...result}
+      })
+    })
+  }
+
   getMaxiumCapacity(): void {
     this.store.dispatch(getMaxiumCapacity())
   }
@@ -70,6 +82,10 @@ export class ProductDeliveryFormComponent implements OnInit {
     this.store.dispatch(getProductDeliveryList());
   }
 
+  getAllDeliveryAddresses(): void {
+    this.store.dispatch(getDeliveryAddresses());
+  }
+
   addNewProductDelivery(): void{
     this.newProductDelivery = Object.assign({}, this.newProductDelivery, { deliverySpecification: { ...this.newProductDelivery.deliverySpecification, 
       arrivalTime : this.newDeliverySpecification.arrivalTime
@@ -77,5 +93,11 @@ export class ProductDeliveryFormComponent implements OnInit {
     this.store.dispatch(addProductDelivery(this.newProductDelivery));
     this.newProductDelivery = Object.assign({}, new ProductDelivery) 
   }
+
+  addNewDeliveryAddress(deliveryAddress: DeliveryAddress): void {
+    this.store.dispatch(addDeliveryAddress(deliveryAddress))
+  }
+
+
 
 }

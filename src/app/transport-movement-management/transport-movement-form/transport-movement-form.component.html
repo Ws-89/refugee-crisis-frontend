@@ -1,0 +1,21 @@
+
+<div>
+  <button mat-raised-button (click)="openAddAddressDialog()">Add address</button>
+</div>
+<div>
+    <button mat-raised-button (click)="openStartingAddressDialog()">Select starting address</button>
+  </div>
+  <div>
+    <button mat-raised-button (click)="openDeliveryAddressDialog()">Select delivery address</button>
+  </div>
+  <div>
+    <button mat-raised-button (click)="openAddVehicleDialog()">Select vehicle</button>
+  </div>
+  <div>
+    <button (click)="addNewTransportMovement(newTransportMovement)" style="margin-top: 3%;" mat-raised-button color="primary">Add Transport movement</button>
+  </div>
+  <mat-divider></mat-divider>
+  <app-transport-movement-list (selectTransportMovement)="selectTransportMovement($event)"></app-transport-movement-list>
+
+<mat-divider></mat-divider>
+<app-product-transport (selectProductDelivery)="selectProductDelivery($event)"></app-product-transport>

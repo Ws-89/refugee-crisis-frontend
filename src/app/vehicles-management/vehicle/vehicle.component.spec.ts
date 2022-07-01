@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HandlingEventsFormComponent } from './handling-events-form.component';
+import { VehicleComponent } from './vehicle.component';
 
-describe('HandlingEventsFormComponent', () => {
-  let component: HandlingEventsFormComponent;
-  let fixture: ComponentFixture<HandlingEventsFormComponent>;
+describe('VehicleComponent', () => {
+  let component: VehicleComponent;
+  let fixture: ComponentFixture<VehicleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HandlingEventsFormComponent ]
+      declarations: [ VehicleComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HandlingEventsFormComponent);
+    fixture = TestBed.createComponent(VehicleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -8,7 +8,8 @@ import { ProductDeliveryComponent } from './product-delivery-management/product-
 import { DeliveryAddressComponent } from './product-delivery-management/delivery-address/delivery-address.component';
 import { ProductsFormComponent } from './products-management/products-form/products-form.component';
 import { VehiclesFormComponent } from './vehicles-management/vehicles-form/vehicles-form.component';
-import { HandlingEventsFormComponent } from './handling-events-management/handling-events-form/handling-events-form.component';
+import { VehicleComponent } from './vehicles-management/vehicle/vehicle.component';
+import { TransportMovementFormComponent } from './transport-movement-management/transport-movement-form/transport-movement-form.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'delivery-address', component: DeliveryAddressesComponent},
   { path: 'delivery-address/:id', component: DeliveryAddressComponent},
   { path: 'vehicles', component: VehiclesFormComponent },
-  { path: 'handling-events', component: HandlingEventsFormComponent}
+  { path: 'transport-movement', component: TransportMovementFormComponent},
+  { path: 'vehicles/:id', component: VehicleComponent}
 ];
 
 @NgModule({
