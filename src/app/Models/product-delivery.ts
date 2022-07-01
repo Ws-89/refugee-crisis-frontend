@@ -10,7 +10,7 @@ export class ProductDelivery {
     totalWeight: number;
     deliveryHistory: DeliveryHistory;
     deliverySpecification: DeliverySpecification;
-    startingAddres: DeliveryAddress;
+    startingAddress: DeliveryAddress;
     products: Product[];
     
 
@@ -20,7 +20,7 @@ export class ProductDelivery {
         totalWeight?: number,
         deliveryHistory?: DeliveryHistory,
         deliverySpecification?: DeliverySpecification,
-        startingAddres?: DeliveryAddress,
+        startingAddress?: DeliveryAddress,
         products?: Product[]
         
     ){
@@ -29,7 +29,7 @@ export class ProductDelivery {
         this.totalWeight = totalWeight || 0;
         this.deliveryHistory = deliveryHistory || new DeliveryHistory();
         this.deliverySpecification = deliverySpecification || new DeliverySpecification();
-        this.startingAddres = startingAddres || new DeliveryAddress();
+        this.startingAddress = startingAddress || new DeliveryAddress();
         this.products = products || new Array<Product>();
         
     }

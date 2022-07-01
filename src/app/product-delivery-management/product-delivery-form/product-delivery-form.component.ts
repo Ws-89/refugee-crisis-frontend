@@ -43,6 +43,15 @@ export class ProductDeliveryFormComponent implements OnInit {
     })
   }
 
+  openStartingAddressDialog(){
+    let dialogRef = this.dialog.open(DeliveryAddressesComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.newProductDelivery = Object.assign({}, this.newProductDelivery, { startingAddress:  {...result}
+      })
+    })
+  }
+
   openProductDialog(){
     let dialogRef = this.dialog.open(AddProductsDialogComponent);
 
