@@ -48,6 +48,8 @@ import { ProductTransportComponent } from './transport-movement-management/produ
 import { AddVehicleDialogComponent } from './transport-movement-management/add-vehicle-dialog/add-vehicle-dialog.component';
 import { TransportMovementListComponent } from './transport-movement-management/transport-movement-list/transport-movement-list.component';
 import { TransportMovementEffects } from './Store/Effects/transport-movement.effects';
+import { handlingEventSelector } from './Store/Selector/handling-events.selector';
+import { HandlingEventEffects } from './Store/Effects/handling-events.effects';
 
 
 
@@ -100,7 +102,7 @@ import { TransportMovementEffects } from './Store/Effects/transport-movement.eff
         strictActionWithinNgZone: true,
         strictActionTypeUniqueness: true,
       }, metaReducers }),
-    EffectsModule.forRoot([ProductEffects, DeliveryAddressEffects, ProductDeliveryEffects, VehicleEffects, TransportMovementEffects]),
+    EffectsModule.forRoot([ProductEffects, DeliveryAddressEffects, ProductDeliveryEffects, VehicleEffects, TransportMovementEffects, HandlingEventEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

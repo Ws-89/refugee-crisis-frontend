@@ -8,6 +8,7 @@ import { TransportMovement } from 'src/app/Models/transport-movement';
 import { DeliveryAddressListComponent } from 'src/app/product-delivery-management/delivery-address-list/delivery-address-list.component';
 import { DeliveryAddressesComponent } from 'src/app/product-delivery-management/delivery-addresses/delivery-addresses.component';
 import { addDeliveryAddress, getDeliveryAddresses } from 'src/app/Store/Actions/delivery-address.action';
+import { getHandlingEvents } from 'src/app/Store/Actions/handling-events.actions';
 import { getProductDeliveryList } from 'src/app/Store/Actions/product-delivery.action';
 import { addTransportMovement, getTransportMovements } from 'src/app/Store/Actions/transport-movement.action';
 import { getVehicles } from 'src/app/Store/Actions/vehicle.action';
@@ -31,6 +32,7 @@ export class TransportMovementFormComponent implements OnInit {
     this.getProductDeliveryList();
     this.getAllDeliveryAddresses();
     this.getTransportMovements();
+    this.getHandlingEvents(44);
   }
 
   selectTransportMovement(transportMovement: TransportMovement){
@@ -95,6 +97,10 @@ export class TransportMovementFormComponent implements OnInit {
 
   getTransportMovements(): void {
     this.store.dispatch(getTransportMovements());
+  }
+
+  getHandlingEvents(transportMovementId: number): void {
+    this.store.dispatch(getHandlingEvents(transportMovementId));
   }
 
   addNewTransportMovement(): void {

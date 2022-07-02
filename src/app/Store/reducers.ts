@@ -5,6 +5,7 @@
 import { routerReducer } from "@ngrx/router-store";
 import { ActionReducer, ActionReducerMap, MetaReducer } from "@ngrx/store";
 import { deliveryAddressReducer } from "./Reducers/delivery-address.reducers";
+import { handlingEventReducer } from "./Reducers/handling-event.reducers";
 import { productDeliveryReducer } from "./Reducers/product-delivery.reducers";
 import { productReducer } from "./Reducers/product.reducers";
 import { transportMovementReducer } from "./Reducers/transport-movement.reducers";
@@ -17,6 +18,7 @@ export const reducers: ActionReducerMap<any> = {
     vehicles: vehicleReducer,
     capacity: maxiumCapacityReducer,
     transportMovements: transportMovementReducer,
+    handlingEvents: handlingEventReducer,
     router: routerReducer
 }
 
