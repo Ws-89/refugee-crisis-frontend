@@ -97,8 +97,10 @@ export class TransportMovementFormComponent implements OnInit {
     this.store.dispatch(getTransportMovements());
   }
 
-  addNewTransportMovement(newTransportMovement: TransportMovement): void {
-    this.store.dispatch(addTransportMovement(newTransportMovement))
+  addNewTransportMovement(): void {
+    // erasing this array before dispatching prevents program from reading nested arrays
+    this.newTransportMovement.vehicle.transportMovement = [];
+    this.store.dispatch(addTransportMovement(this.newTransportMovement))
   }
 
   addNewDeliveryAddress(deliveryAddress: DeliveryAddress): void {

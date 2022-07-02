@@ -1,3 +1,3 @@
 export enum Status {
-    Available, Reserved, Sent
+    Available = 'Available', Reserved = 'Reserved', Sent = 'Shipped'
 }

@@ -11,8 +11,14 @@
   <div>
     <button mat-raised-button (click)="openAddVehicleDialog()">Select vehicle</button>
   </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Arrival time</mat-label>
+    <input name='expirationDate' [(ngModel)]="newTransportMovement.deliverySpecification.arrivalTime" matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
   <div>
-    <button (click)="addNewTransportMovement(newTransportMovement)" style="margin-top: 3%;" mat-raised-button color="primary">Add Transport movement</button>
+    <button (click)="addNewTransportMovement()" style="margin-top: 3%;" mat-raised-button color="primary">Add Transport movement</button>
   </div>
   <mat-divider></mat-divider>
   <app-transport-movement-list (selectTransportMovement)="selectTransportMovement($event)"></app-transport-movement-list>

@@ -30,6 +30,7 @@
                     <th class="col">Age</th>
                     <th class="col">Job Title</th>
                     <th class="col">Location</th>
+                    <th class="col">Capacity</th>
                     <th class="col">Delete</th>
                     <th class="col">Edit</th>
                 </tr>
@@ -41,6 +42,7 @@
                         <td class="col">{{ transportMovement.deliverySpecification.deliverySpecificationId }}</td>
                         <td class="col">{{ transportMovement.startingAddress.city }}</td>
                         <td class="col">{{ transportMovement.vehicle.brand }}</td>
+                        <td class="col">{{ transportMovement.vehicle.capacity }}</td>
                         <button mat-button (click)="delete(transportMovement.transportMovementId)">Delete</button>
                         <button mat-button *ngIf="i === selectedIndex" (click)="cancelEdit()">Cancel</button>
                         <button mat-button (click)="selectTransport(transportMovement)">Select this product</button>

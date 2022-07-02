@@ -3,6 +3,7 @@ import { DeliveryAddress } from "./delivery-address";
 import { DeliveryHistory } from "./delivery-history";
 import { DeliverySpecification } from "./delivery-specification";
 import { Product } from "./product";
+import { Status } from "./status.enum";
 
 export class ProductDelivery {
     deliveryId: number;
@@ -12,6 +13,7 @@ export class ProductDelivery {
     deliverySpecification: DeliverySpecification;
     startingAddress: DeliveryAddress;
     products: Product[];
+    status: Status;
     
 
     constructor(
@@ -21,8 +23,8 @@ export class ProductDelivery {
         deliveryHistory?: DeliveryHistory,
         deliverySpecification?: DeliverySpecification,
         startingAddress?: DeliveryAddress,
-        products?: Product[]
-        
+        products?: Product[],
+        status?: Status
     ){
         this.deliveryId = deliveryId || null;
         this.description = description || '';
@@ -31,6 +33,6 @@ export class ProductDelivery {
         this.deliverySpecification = deliverySpecification || new DeliverySpecification();
         this.startingAddress = startingAddress || new DeliveryAddress();
         this.products = products || new Array<Product>();
-        
+        this.status = Status.Available
     }
 }
