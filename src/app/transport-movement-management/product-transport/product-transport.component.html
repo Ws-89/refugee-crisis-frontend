@@ -37,7 +37,7 @@
             </thead>
             <tbody >
                 <ng-container  *ngFor="let productDelivery of productDeliveries$ | async; let i = index">
-                    <tr>
+                    <tr [ngClass] = "{'one': productDelivery.deliveryId == selectedDeliveryIndex}">
                         <td class="col">{{ productDelivery.description }}</td>
                         <td class="col">{{ productDelivery.totalWeight }}</td>
                         <button mat-button (click)="delete(productDelivery.deliveryId)">Delete</button>

@@ -1,13 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
-
-import { AddProductsDialogComponent } from '../add-products-dialog/add-products-dialog.component';
 import { DeliveryAddressesComponent } from '../delivery-addresses/delivery-addresses.component';
 import { DeliverySpecification } from '../../Models/delivery-specification';
-
-
-
 import { addProductDelivery, getProductDeliveryList } from '../../Store/Actions/product-delivery.action';
 import { ProductDelivery } from 'src/app/Models/product-delivery';
 import { Product } from 'src/app/Models/product';
@@ -17,6 +12,8 @@ import { MaxiumCapacityState } from 'src/app/Store/Reducers/vehicle.reducers';
 import { addDeliveryAddress, getDeliveryAddresses } from 'src/app/Store/Actions/delivery-address.action';
 import { DeliveryAddressListComponent } from '../delivery-address-list/delivery-address-list.component';
 import { DeliveryAddress } from 'src/app/Models/delivery-address';
+import { getProducts } from 'src/app/Store/Actions/product.action';
+import { ProductDeliveryService } from 'src/app/Service/product-delivery.service';
 
 
 @Component({
@@ -28,13 +25,24 @@ export class ProductDeliveryFormComponent implements OnInit {
   newProductDelivery: ProductDelivery = new ProductDelivery(); 
   newDeliverySpecification: DeliverySpecification = new DeliverySpecification();
   maximumCapacity$ = this.capacityStore.pipe(select(maxiumumCapacitySelector));
+  productDeliveryIndex: number = 0;
+  productIndex: number = 0;
 
-  constructor(private store: Store, private capacityStore: Store<MaxiumCapacityState>, public dialog: MatDialog) { }
+  constructor(private store: Store, private capacityStore: Store<MaxiumCapacityState>, private dialog: MatDialog, private productDeliveryService: ProductDeliveryService) { }
 
   ngOnInit(): void {
     this.getAllProductDeliveries();
     this.getMaxiumCapacity();
+    this.getAllProducts();
     this.getAllDeliveryAddresses();
+  }
+
+  selectProduct(product: Product){
+    this.productIndex = product.productId;
+  }
+
+  selectProductDelivery(productDelivery: ProductDelivery){
+    this.productDeliveryIndex = productDelivery.deliveryId;
   }
 
   openAddAddressDialog(){
@@ -42,15 +50,6 @@ export class ProductDeliveryFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.addNewDeliveryAddress(result)
-    })
-  }
-
-  openProductDialog(){
-    let dialogRef = this.dialog.open(AddProductsDialogComponent);
-
-    dialogRef.afterClosed().subscribe((result: Product) => {
-      const productsArray = this.newProductDelivery.products
-      this.newProductDelivery = Object.assign({}, this.newProductDelivery, { products : [...productsArray, {...result} ]})
     })
   }
 
@@ -76,6 +75,10 @@ export class ProductDeliveryFormComponent implements OnInit {
   getMaxiumCapacity(): void {
     this.store.dispatch(getMaxiumCapacity())
   }
+
+  getAllProducts(): void {
+    this.store.dispatch(getProducts())
+  }
   
 
   getAllProductDeliveries(): void {
@@ -98,6 +101,14 @@ export class ProductDeliveryFormComponent implements OnInit {
     this.store.dispatch(addDeliveryAddress(deliveryAddress))
   }
 
+  assignProductToPackage(): void{ 
+    this.productDeliveryService.assignProductToPackage(this.productDeliveryIndex, this.productIndex).subscribe(
+      res => {
+        this.getAllProductDeliveries();
+        this.getAllProducts();
+      }
+    )
+  }
 
 
 }

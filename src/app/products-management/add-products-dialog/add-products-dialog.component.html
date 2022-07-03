@@ -81,14 +81,8 @@
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <div>
-                <button (click)="addNewProducts()" mat-raised-button color="primary">Add
-                    Product</button>
+                <button (click)="addNewProducts()" mat-raised-button color="primary">Add Product</button>
             </div>
         </form>
-    </div>
-    
-    <mat-divider></mat-divider>
-    <div style="padding: 20px;">
-        <app-product-list-dialog (selectProduct)="selectProduct($event)"></app-product-list-dialog>
-    </div>
+    </div>    
 </div>

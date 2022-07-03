@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators'
+import { ProductDelivery } from 'src/app/Models/product-delivery';
+import { ProductDeliveryService } from 'src/app/Service/product-delivery.service';
+import { getProductDeliveryList } from 'src/app/Store/Actions/product-delivery.action';
 import { ProductDeliveryState } from '../../Store/Reducers/product-delivery.reducers';
 import { productDelivery } from '../../Store/Selector/product-delivery.selector';
 
@@ -11,9 +16,20 @@ import { productDelivery } from '../../Store/Selector/product-delivery.selector'
 })
 export class ProductDeliveryComponent implements OnInit {
   productDelivery$ = this.store.pipe(select(productDelivery));
-  constructor(private store: Store<ProductDeliveryState>) {}
+  
+  constructor(private store: Store<ProductDeliveryState>, private productDeliveryService: ProductDeliveryService, private router: Router) {}
 
   ngOnInit(): void {
+    
   }
 
+  deleteProductFromPackage(productDeliveryIndex: number, productIndex: number){
+    this.productDeliveryService.removeProductFromPackage(productDeliveryIndex, productIndex).subscribe(
+      res => {
+        this.store.dispatch(getProductDeliveryList())
+      }
+      
+    )
+  }
+ 
 }

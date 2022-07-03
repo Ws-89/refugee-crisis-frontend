@@ -7,18 +7,20 @@ import { availableProducts, productSelector } from '../../Store/Selector/product
 import { takeUntil } from 'rxjs/operators';
 import { deleteProduct,  updateProduct } from '../../Store/Actions/product.action';
 import { Status } from 'src/app/Models/status.enum';
+import { TransportMovement } from 'src/app/Models/transport-movement';
 
 @Component({
-  selector: 'app-product-list-dialog',
-  templateUrl: './product-list-dialog.component.html',
-  styleUrls: ['./product-list-dialog.component.css']
+  selector: 'app-product-to-add-to-delivery-list',
+  templateUrl: './product-to-add-to-delivery-list.component.html',
+  styleUrls: ['./product-to-add-to-delivery-list.component.css']
 })
-export class ProductListDialogComponent implements OnInit {
+export class ProductToAddToDeliveryListComponent implements OnInit {
   done = new Subject();
   selectedIndex: number = null;
   products$ = this.store.pipe(select(availableProducts(Status.Available)))
   weight = 0;
   products: Product[];
+  selectedProductIndex: number = 0;
  
   @Output() selectProduct:EventEmitter<any> = new EventEmitter();
 
@@ -32,6 +34,7 @@ export class ProductListDialogComponent implements OnInit {
     }
 
   select(product: Product): void{
+    this.selectedProductIndex = product.productId;
     this.selectProduct.emit(product);
   } 
 

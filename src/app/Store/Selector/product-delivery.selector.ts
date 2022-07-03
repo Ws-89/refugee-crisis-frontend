@@ -1,6 +1,7 @@
 import { getSelectors, RouterReducerState } from "@ngrx/router-store";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { ProductDelivery } from "src/app/Models/product-delivery";
+import { Status } from "src/app/Models/status.enum";
 import { ProductDeliveryState } from "../Reducers/product-delivery.reducers";
 
 export const productDeliverySelector = createSelector(
@@ -12,6 +13,11 @@ const routeParams = createSelector(
     (state: ProductDeliveryState) => state.router.state,
     (state) => state.params
   )
+
+  export const availableProductsDelivery = (available: Status) =>
+  createSelector(productDeliverySelector, (deliveryList) => {
+  return deliveryList.filter((delivery: ProductDelivery) => delivery.status == available);
+});
 
 //   const selectRouter = createFeatureSelector<RouterReducerState>('router');
 

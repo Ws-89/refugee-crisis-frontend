@@ -18,6 +18,7 @@ export class TransportMovementListComponent implements OnInit {
   transportMovements: TransportMovement[];
   done = new Subject();
   selectedIndex: number = null;
+  selectedTransportIndex: number = null;
   // street: string = '';
 
   @Output() selectTransportMovement:EventEmitter<any> = new EventEmitter();
@@ -30,13 +31,8 @@ export class TransportMovementListComponent implements OnInit {
       .subscribe((data) => (this.transportMovements = JSON.parse(JSON.stringify(data))));
   }
 
-  selectedRowIndex = -1;
-
-  highlight(row: any){
-    this.selectedRowIndex = row.id;
-  }
-
   selectTransport(transportMovement: TransportMovement): void{
+    this.selectedTransportIndex = transportMovement.transportMovementId
     this.selectTransportMovement.emit(transportMovement);
   } 
 

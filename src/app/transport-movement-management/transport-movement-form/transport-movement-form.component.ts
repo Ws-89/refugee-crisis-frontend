@@ -3,16 +3,17 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { DeliveryAddress } from 'src/app/Models/delivery-address';
+import { HandlingEvent } from 'src/app/Models/handling-event';
 import { ProductDelivery } from 'src/app/Models/product-delivery';
 import { TransportMovement } from 'src/app/Models/transport-movement';
 import { DeliveryAddressListComponent } from 'src/app/product-delivery-management/delivery-address-list/delivery-address-list.component';
 import { DeliveryAddressesComponent } from 'src/app/product-delivery-management/delivery-addresses/delivery-addresses.component';
+import { HandlingEventService } from 'src/app/Service/handling-event.service';
 import { addDeliveryAddress, getDeliveryAddresses } from 'src/app/Store/Actions/delivery-address.action';
-import { getHandlingEvents } from 'src/app/Store/Actions/handling-events.actions';
+// import { addHandlingEvent, getHandlingEvents } from 'src/app/Store/Actions/handling-events.actions';
 import { getProductDeliveryList } from 'src/app/Store/Actions/product-delivery.action';
 import { addTransportMovement, getTransportMovements } from 'src/app/Store/Actions/transport-movement.action';
 import { getVehicles } from 'src/app/Store/Actions/vehicle.action';
-import { VehiclesListComponent } from 'src/app/vehicles-management/vehicles-list/vehicles-list.component';
 import { AddVehicleDialogComponent } from '../add-vehicle-dialog/add-vehicle-dialog.component';
 
 @Component({
@@ -24,27 +25,23 @@ export class TransportMovementFormComponent implements OnInit {
   newTransportMovement: TransportMovement = new TransportMovement();
   productDeliveryIndex: number;
   transportMovementIndex: number;
+  newHandlingEvent: HandlingEvent = new HandlingEvent();
 
-  constructor(private store: Store, public dialog: MatDialog) { }
+  constructor(private store: Store, public dialog: MatDialog, private handlingEventService: HandlingEventService) { }
 
   ngOnInit(): void {
     this.getVehicleList();
     this.getProductDeliveryList();
     this.getAllDeliveryAddresses();
     this.getTransportMovements();
-    this.getHandlingEvents(44);
   }
 
   selectTransportMovement(transportMovement: TransportMovement){
-    console.log('transport movement id :', transportMovement.transportMovementId)
     this.transportMovementIndex = transportMovement.transportMovementId;
-    console.log('transport index', this.transportMovementIndex)
   }
 
   selectProductDelivery(productDelivery: ProductDelivery){
-    console.log('product delivery id :', productDelivery.deliveryId)
     this.productDeliveryIndex = productDelivery.deliveryId;
-    console.log('delivery index', this.productDeliveryIndex)
   }
 
   openAddAddressDialog(){
@@ -99,9 +96,9 @@ export class TransportMovementFormComponent implements OnInit {
     this.store.dispatch(getTransportMovements());
   }
 
-  getHandlingEvents(transportMovementId: number): void {
-    this.store.dispatch(getHandlingEvents(transportMovementId));
-  }
+  // getHandlingEvents(transportMovementId: number): void {
+  //   this.store.dispatch(getHandlingEvents(transportMovementId));
+  // }
 
   addNewTransportMovement(): void {
     // erasing this array before dispatching prevents program from reading nested arrays
@@ -113,4 +110,24 @@ export class TransportMovementFormComponent implements OnInit {
     this.store.dispatch(addDeliveryAddress(deliveryAddress))
   }
 
+  addDeliveryToTransport(){
+
+    // this.store.dispatch(addHandlingEvent(this.newHandlingEvent, this.productDeliveryIndex, this.transportMovementIndex))
+    this.handlingEventService.addHandlingEvent(this.newHandlingEvent, this.productDeliveryIndex, this.transportMovementIndex).subscribe(res => {
+      this.getProductDeliveryList(),
+      this.getTransportMovements()
+    }
+      
+    )
+
+
+    
+
+    
+        
+      
+  }
+
+
+  
 }

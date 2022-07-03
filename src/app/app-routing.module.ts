@@ -10,6 +10,7 @@ import { ProductsFormComponent } from './products-management/products-form/produ
 import { VehiclesFormComponent } from './vehicles-management/vehicles-form/vehicles-form.component';
 import { VehicleComponent } from './vehicles-management/vehicle/vehicle.component';
 import { TransportMovementFormComponent } from './transport-movement-management/transport-movement-form/transport-movement-form.component';
+import { TransportDetailsComponent } from './transport-movement-management/transport-details/transport-details.component';
 
 
 const routes: Routes = [
@@ -21,11 +22,13 @@ const routes: Routes = [
   { path: 'delivery-address/:id', component: DeliveryAddressComponent},
   { path: 'vehicles', component: VehiclesFormComponent },
   { path: 'transport-movement', component: TransportMovementFormComponent},
-  { path: 'vehicles/:id', component: VehicleComponent}
+  { path: 'vehicles/:id', component: VehicleComponent},
+  { path: 'transport-movement/:id', component: TransportDetailsComponent }
+  
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}) ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -3,9 +3,10 @@ import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators'
 import { ProductDelivery } from 'src/app/Models/product-delivery';
+import { Status } from 'src/app/Models/status.enum';
 import { deleteProductDelivery, updateProductDelivery } from 'src/app/Store/Actions/product-delivery.action';
 import { ProductDeliveryState } from 'src/app/Store/Reducers/product-delivery.reducers';
-import { productDeliverySelector } from 'src/app/Store/Selector/product-delivery.selector';
+import { availableProductsDelivery, productDeliverySelector } from 'src/app/Store/Selector/product-delivery.selector';
 
 @Component({
   selector: 'app-product-transport',
@@ -13,11 +14,12 @@ import { productDeliverySelector } from 'src/app/Store/Selector/product-delivery
   styleUrls: ['./product-transport.component.css']
 })
 export class ProductTransportComponent implements OnInit {
-  productDeliveries$ = this.store.pipe(select(productDeliverySelector));
+  productDeliveries$ = this.store.pipe(select(availableProductsDelivery(Status.Available)));
   productDeliveries: ProductDelivery[];
   done = new Subject();
   selectedIndex: number = null;
   totalWeight: number = 0;
+  selectedDeliveryIndex: number = null;
 
   @Output() selectProductDelivery:EventEmitter<any> = new EventEmitter();
 
@@ -30,6 +32,7 @@ export class ProductTransportComponent implements OnInit {
   }
 
   selectDelivery(productDelivery: ProductDelivery): void{
+    this.selectedDeliveryIndex = productDelivery.deliveryId;
     this.selectProductDelivery.emit(productDelivery);
   } 
 

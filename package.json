@@ -28,6 +28,7 @@
     "@ngrx/store": "^12.0.0",
     "@ngrx/store-devtools": "^12.0.0",
     "angular-in-memory-web-api": "^0.11.0",
+    "material-table": "^2.0.3",
     "ngx-material-timepicker": "^5.5.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

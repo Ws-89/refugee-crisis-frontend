@@ -19,6 +19,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
+import { MatTableModule } from "@angular/material/table";
+
 import { productReducer } from './Store/Reducers/product.reducers';
 import { ProductListComponent } from './products-management/product-list/product-list.component';
 import { ProductEffects } from './Store/Effects/product.effects';
@@ -32,11 +34,11 @@ import { DeliveryAddressesComponent } from './product-delivery-management/delive
 import { ProductDeliveryFormComponent } from './product-delivery-management/product-delivery-form/product-delivery-form.component';
 import { ProductDeliveryEffects } from './Store/Effects/product-delivery.effects';
 import { ProductDeliveryComponent } from './product-delivery-management/product-delivery/product-delivery.component';
-import { reducers, metaReducers } from './Store/reducers';
+import {  reducers } from './Store/reducers';
 import { DeliveryAddressComponent } from './product-delivery-management/delivery-address/delivery-address.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AddProductsDialogComponent } from './product-delivery-management/add-products-dialog/add-products-dialog.component';
-import { ProductListDialogComponent } from './product-delivery-management/product-list-dialog/product-list-dialog.component';
+import { AddProductsDialogComponent } from './products-management/add-products-dialog/add-products-dialog.component';
+import { ProductToAddToDeliveryListComponent } from './product-delivery-management/product-to-add-to-delivery-list/product-to-add-to-delivery-list.component';
 import { ProductsFormComponent } from './products-management/products-form/products-form.component';
 import { VehiclesFormComponent } from './vehicles-management/vehicles-form/vehicles-form.component';
 import { VehiclesListComponent } from './vehicles-management/vehicles-list/vehicles-list.component';
@@ -48,8 +50,9 @@ import { ProductTransportComponent } from './transport-movement-management/produ
 import { AddVehicleDialogComponent } from './transport-movement-management/add-vehicle-dialog/add-vehicle-dialog.component';
 import { TransportMovementListComponent } from './transport-movement-management/transport-movement-list/transport-movement-list.component';
 import { TransportMovementEffects } from './Store/Effects/transport-movement.effects';
-import { handlingEventSelector } from './Store/Selector/handling-events.selector';
-import { HandlingEventEffects } from './Store/Effects/handling-events.effects';
+import { TransportDetailsComponent } from './transport-movement-management/transport-details/transport-details.component';
+// import { handlingEventSelector } from './Store/Selector/handling-events.selector';
+// import { HandlingEventEffects } from './Store/Effects/handling-events.effects';
 
 
 
@@ -66,7 +69,7 @@ import { HandlingEventEffects } from './Store/Effects/handling-events.effects';
     DeliveryAddressComponent,
     ProductDeliveryComponent,
     AddProductsDialogComponent,
-    ProductListDialogComponent,
+    ProductToAddToDeliveryListComponent,
     VehiclesFormComponent,
     VehiclesListComponent,
     VehicleComponent,
@@ -75,6 +78,7 @@ import { HandlingEventEffects } from './Store/Effects/handling-events.effects';
     ProductTransportComponent,
     AddVehicleDialogComponent,
     TransportMovementListComponent,
+    TransportDetailsComponent,
   ],
   // entryComponents: [ModalFormComponent],
   imports: [
@@ -92,6 +96,7 @@ import { HandlingEventEffects } from './Store/Effects/handling-events.effects';
     MatDividerModule,
     MatDialogModule,
     ReactiveFormsModule,
+    MatTableModule,
     
     StoreModule.forRoot(
       reducers, { runtimeChecks: {
@@ -101,8 +106,8 @@ import { HandlingEventEffects } from './Store/Effects/handling-events.effects';
         strictActionSerializability: false,
         strictActionWithinNgZone: true,
         strictActionTypeUniqueness: true,
-      }, metaReducers }),
-    EffectsModule.forRoot([ProductEffects, DeliveryAddressEffects, ProductDeliveryEffects, VehicleEffects, TransportMovementEffects, HandlingEventEffects]),
+      }}),
+    EffectsModule.forRoot([ProductEffects, DeliveryAddressEffects, ProductDeliveryEffects, VehicleEffects, TransportMovementEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

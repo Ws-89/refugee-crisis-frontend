@@ -41,16 +41,13 @@ export class AddProductsDialogComponent implements OnInit {
     this.getAllProducts();
   }
 
-  selectProduct(product: Product){
-    this.dialogRef.close(product);
-  }
-
   getAllProducts(): void {
     this.store.dispatch(getProducts());
   }
 
   addNewProducts(): void {
-    this.dialogRef.close(this.newProduct);
+    this.store.dispatch(addProduct(this.newProduct))
+    this.newProduct = Object.assign({}, new Product)
   }
 }
 

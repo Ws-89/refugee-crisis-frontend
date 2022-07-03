@@ -30,25 +30,6 @@ export class ProductListComponent implements OnInit {
       .subscribe((data) => (this.products = JSON.parse(JSON.stringify(data))));
     }
   
-  enableEdit(product: Product, index: number): void {
-    console.log(product)
-    this.selectedIndex = index;
-    this.weight = product.weight;
-  }
-
-  cancelEdit(): void {
-    this.selectedIndex = null;
-  }
-
-  // update the earning from the input then dispatch update action
-  update(product: Product): void {
-    const p = { ...product };
-    p.weight = this.weight;
-    // dispatch action to update
-    this.store.dispatch(updateProduct(p));
-    this.selectedIndex = null;
-  }
-
   deleteProduct(productId: number): void {
     this.store.dispatch(deleteProduct(productId));
   }

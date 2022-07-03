@@ -32,9 +32,6 @@
           <button mat-raised-button (click)="openDeliveryAddressDialog()" style="margin-top: 3%;">Select delivery address</button>
         </div>
         <div>
-          <button mat-raised-button (click)="openProductDialog()" style="margin-top: 3%;">Add product</button>
-        </div>
-        <div>
           <button (click)="addNewProductDelivery()" style="margin-top: 3%;" mat-raised-button color="primary">Add Product delivery</button>
         </div>
         
@@ -42,7 +39,14 @@
     </div>
     <mat-divider></mat-divider>
     <div style="padding: 20px;">
-        <app-product-delivery-list></app-product-delivery-list>
+        <app-product-delivery-list (selectProductDelivery)="selectProductDelivery($event)"></app-product-delivery-list>
     </div>
+    <mat-divider></mat-divider>
+    <div style="padding: 20px;">
+        <app-product-to-add-to-delivery-list (selectProduct)="selectProduct($event)"></app-product-to-add-to-delivery-list>
+    </div>
+  </div>
+  <div>
+    <button (click)="assignProductToPackage()" style="margin-top: 3%;" mat-raised-button color="primary">Assign selected product to selected package</button>
   </div>
 

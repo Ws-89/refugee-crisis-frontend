@@ -1,4 +1,4 @@
-<div class="product-delivery-list">
+<!-- <div class="product-delivery-list">
             <section *ngFor="let productDelivery of productDeliveries$ | async;let i = index">
                 <mat-card style="position: relative;">
                     <div style="position: absolute; right: 20px">
@@ -21,4 +21,33 @@
                 </mat-card>
             </section>
         </div>
-        
+         -->
+         <div class="container">
+            <div class="row">
+                <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
+                    <thead>
+                        <tr>
+                            <th class="col">Full Name</th>
+                            <th class="col">Age</th>
+                            <th class="col">Job Title</th>
+                            <th class="col">Location</th>
+                            <th class="col">Capacity</th>
+                            <th class="col">Delete</th>
+                            <th class="col">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <ng-container  *ngFor="let productDelivery of productDeliveries$ | async; let i = index">
+                            <tr [ngClass] = "{'highlight': productDelivery.deliveryId == selectedDeliveryIndex}">
+                                <td class="col">{{ productDelivery.deliveryId }}</td>
+                                <td class="col">{{ productDelivery.description }}</td>
+                                <button mat-button (click)="delete(productDelivery.deliveryId)">Delete</button>
+                                <button mat-button (click)="select(productDelivery)">Select this product</button>
+                                <button mat-button routerLink="/product-delivery/{{ productDelivery.deliveryId }}">Show details</button>
+                            </tr>
+                        </ng-container>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>

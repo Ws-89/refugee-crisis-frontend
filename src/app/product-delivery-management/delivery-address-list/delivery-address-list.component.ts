@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, EventEmitter, Output, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { DeliveryAddressService } from '../../Service/delivery-address.service';
 import { deleteDeliveryAddress, updateDeliveryAddress } from '../../Store/Actions/delivery-address.action';
 import { DeliveryAddressState } from '../../Store/Reducers/delivery-address.reducers';
 import { deliveryAddressSelector } from '../../Store/Selector/delivery-address.selector';
+import { DeliveryAddressesComponent } from '../delivery-addresses/delivery-addresses.component';
 
 @Component({
   selector: 'app-delivery-address-list',
@@ -22,7 +23,7 @@ export class DeliveryAddressListComponent implements OnInit {
   street: string = '';
 
   constructor(private store: Store<DeliveryAddressState>, private dialogRef: MatDialogRef<DeliveryAddressListComponent>,
-    @Inject(MAT_DIALOG_DATA) data: any) { }
+    @Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog) { }
     
   ngOnInit(): void {
     this.deliveryAddresses$

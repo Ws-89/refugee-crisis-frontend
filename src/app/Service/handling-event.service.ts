@@ -22,8 +22,17 @@ export class HandlingEventService {
     );
   }
 
-  addHandlingEvent(handlingEvent: HandlingEvent): Observable<HandlingEvent> {
-    return this.http.post<HandlingEvent>(`${this.baseUrl}/${this.url}/save`, handlingEvent).pipe(
+  getHandlingEvent(handlingEventId: number): Observable<HandlingEvent> {
+    return this.http.get<HandlingEvent>(`${this.baseUrl}/${this.url}/get/${handlingEventId}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
+
+  addHandlingEvent(handlingEvent: HandlingEvent, deliveryId: number, transportId: number): Observable<HandlingEvent> {
+    return this.http.post<HandlingEvent>(`${this.baseUrl}/${this.url}/save/${deliveryId}/${transportId}`, handlingEvent).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);
         return throwError(error);
