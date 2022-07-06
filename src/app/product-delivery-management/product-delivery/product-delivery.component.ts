@@ -17,7 +17,7 @@ import { productDelivery } from '../../Store/Selector/product-delivery.selector'
 export class ProductDeliveryComponent implements OnInit {
   productDelivery$ = this.store.pipe(select(productDelivery));
   
-  constructor(private store: Store<ProductDeliveryState>, private productDeliveryService: ProductDeliveryService, private router: Router) {}
+  constructor(private store: Store<ProductDeliveryState>, private productDeliveryService: ProductDeliveryService) {}
 
   ngOnInit(): void {
     

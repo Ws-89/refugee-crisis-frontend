@@ -13,7 +13,7 @@ export class HandlingEventService {
   private baseUrl = environment.baseUrl;
   constructor(private http: HttpClient) {}
 
-  getHandlingEvents(transportMovementId: number): Observable<ReadonlyArray<HandlingEvent>> {
+  getHandlingEventsByTransportId(transportMovementId: number): Observable<ReadonlyArray<HandlingEvent>> {
     return this.http.get<ReadonlyArray<HandlingEvent>>(`${this.baseUrl}/${this.url}/list-of-transport-movement/${transportMovementId}`).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);

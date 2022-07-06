@@ -111,7 +111,6 @@ export class TransportMovementFormComponent implements OnInit {
   }
 
   addDeliveryToTransport(){
-
     // this.store.dispatch(addHandlingEvent(this.newHandlingEvent, this.productDeliveryIndex, this.transportMovementIndex))
     this.handlingEventService.addHandlingEvent(this.newHandlingEvent, this.productDeliveryIndex, this.transportMovementIndex).subscribe(res => {
       this.getProductDeliveryList(),

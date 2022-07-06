@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
       });
       this.router.events
       .pipe(
-        untilDestroyed(this),
+       
         filter((e) => e instanceof NavigationEnd)
       )
       .subscribe(() => {

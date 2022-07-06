@@ -3,11 +3,12 @@ import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { ProductDelivery } from '../../Models/product-delivery';
 import { ProductDeliveryState } from '../../Store/Reducers/product-delivery.reducers';
-import { productDeliverySelector } from '../../Store/Selector/product-delivery.selector';
+import { availableProductsDelivery, productDeliverySelector } from '../../Store/Selector/product-delivery.selector';
 import { takeUntil } from 'rxjs/operators';
 import { deleteProductDelivery, updateProductDelivery } from '../../Store/Actions/product-delivery.action';
 import { TransportMovement } from 'src/app/Models/transport-movement';
 import { Product } from 'src/app/Models/product';
+import { Status } from 'src/app/Models/status.enum';
 
 @Component({
   selector: 'app-product-delivery-list',
@@ -15,7 +16,7 @@ import { Product } from 'src/app/Models/product';
   styleUrls: ['./product-delivery-list.component.css']
 })
 export class ProductDeliveryListComponent implements OnInit {
-  productDeliveries$ = this.store.pipe(select(productDeliverySelector));
+  productDeliveries$ = this.store.pipe(select(availableProductsDelivery(Status.Available)));
   productDeliveries: ProductDelivery[];
   done = new Subject();
   totalWeight: number = 0;
