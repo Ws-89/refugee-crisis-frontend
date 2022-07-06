@@ -1,0 +1,16 @@
+<div style="height: 100%;">
+    <section class="display-movie" *ngIf="productDelivery$ | async as productDelivery">
+        
+            <h1> {{productDelivery.description}} </h1>
+            <h3> {{ productDelivery.totalWeight }} million </h3>
+            <ng-container  *ngFor="let product of productDelivery.products; let i = index">
+                <tr >
+                    <td class="col">{{ product.name }}</td>
+                    <td class="col">{{ product.weight }}</td>
+                    <button mat-button (click)="deleteProductFromPackage(productDelivery.deliveryId, product.productId)">Delete</button>
+                </tr>
+            </ng-container>
+            <button mat-button routerLink="/product-delivery">Return</button>
+        
+    </section>
+</div>

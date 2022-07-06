@@ -13,7 +13,7 @@ export class ProductDeliveryService {
   private baseUrl = environment.baseUrl;
   constructor(private http: HttpClient) {}
 
-  getProductDeliveries(): Observable<ReadonlyArray<ProductDelivery>> {
+  getProductDeliveryList(): Observable<ReadonlyArray<ProductDelivery>> {
     return this.http.get<ReadonlyArray<ProductDelivery>>(`${this.baseUrl}/${this.url}/list`).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);
@@ -30,6 +30,27 @@ export class ProductDeliveryService {
       })
     );
   }
+
+  assignProductToPackage(deliveryId: number, productId: number): Observable<String> {
+    return this.http.get<String>(`${this.baseUrl}/${this.url}/${deliveryId}/assign/${productId}`)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
+
+  removeProductFromPackage(deliveryId: number, productId: number): Observable<String> {
+    return this.http.get<String>(`${this.baseUrl}/${this.url}/${deliveryId}/remove-from-package/${productId}`)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
+
 
   deleteProductDelivery(productDeliveryId: number) {
     return this.http.delete(`${this.baseUrl}/${this.url}/delete/${productDeliveryId}`).pipe(

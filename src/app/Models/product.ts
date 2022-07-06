@@ -1,9 +1,7 @@
-import { ScrollDispatcher } from "@angular/cdk/scrolling";
-import { FoodType } from "./foodType.enum";
-import { HygienePurpose } from "./hygienePurpose.enum";
-import { MedicalPurpose } from "./medicalPurpose.enum";
+import { Category } from "./product-category";
 import { ProductState } from "./productState.enum";
 import { ProductType } from "./productType.enum";
+import { Status } from "./status.enum";
 
 export class Product {
     productId : number;
@@ -14,10 +12,10 @@ export class Product {
     amount: number;
     fragile : boolean;
     state: ProductState;
-    foodType: FoodType;
+    reserved: Status;
     productType: ProductType;
-    hygienePurpose: HygienePurpose;
-    medicalPurpose: MedicalPurpose;
+    category: Category;
+   
 
     constructor(
         productId?: number,
@@ -27,11 +25,10 @@ export class Product {
         weight?: number,
         amount?: number,
         fragile? : boolean,
+        reserved?: Status,
         state?: ProductState,
-        foodType?: FoodType,
         productType?: ProductType,
-        hygienePurpose?: HygienePurpose,
-        medicalPurpose?: MedicalPurpose
+        category?: Category
       ) {
         this.productId = productId || null;
         this.name = name || '';
@@ -40,10 +37,9 @@ export class Product {
         this.weight = weight || 0;
         this.amount = amount || 0;
         this.fragile = fragile || null;
+        this.reserved = Status.Available;
         this.state = state || null;
-        this.foodType = foodType || null;
         this.productType = productType || null;
-        this.hygienePurpose = hygienePurpose || null;
-        this.medicalPurpose = medicalPurpose || null;
+        this.category = category || new Category;
     }
 }

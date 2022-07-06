@@ -1,9 +1,0 @@
-<div style="height: 100%;">
-    <section class="display-movie" *ngIf="productDelivery$ | async as productDelivery">
-        <mat-card style="height: 300px; width: 300px;">
-            <h1> {{productDelivery.description}} </h1>
-            <h2> {{ productDelivery.capacity  }} </h2>
-            <h3> {{ productDelivery.totalWeight }} million </h3>
-        </mat-card>
-    </section>
-</div>

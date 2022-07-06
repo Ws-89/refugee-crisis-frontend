@@ -1,0 +1,27 @@
+<div class="delivery-address-list">
+    <section *ngFor="let vehicle of vehicles$ | async; let i = index">
+        <mat-card style="position: relative;">
+            <div style="position: absolute; right: 20px">
+                <button mat-icon-button>
+                    <mat-icon (click)="enableEdit(vehicle, i)">edit</mat-icon>
+                </button>
+            </div>
+            <h1> {{vehicle.vehicleId}} </h1>
+            <h2> {{ vehicle.brand }} </h2>
+            <ng-template #ear><h3> ${{ vehicle.model }} </h3></ng-template>
+            <h3> {{ vehicle.capacity }}</h3>
+            <mat-form-field *ngIf="i === selectedIndex; else ear" class="example-full-width" appearance="fill">
+                <mat-label>Capacity</mat-label>
+                <input placeholder="Street name" [(ngModel)]="capacity">
+            </mat-form-field>
+            <mat-card-actions>
+                <button mat-button (click)="delete(vehicle.vehicleId)">Delete</button>
+                <button mat-button *ngIf="i === selectedIndex" (click)="update(vehicle)">Update</button>
+                <button mat-button *ngIf="i === selectedIndex" (click)="cancelEdit()">Cancel</button>
+                <button mat-button (click)="selectVehicle(vehicle)">Select this vehicle</button>
+            </mat-card-actions>
+        </mat-card>
+    </section>
+</div>
+
+

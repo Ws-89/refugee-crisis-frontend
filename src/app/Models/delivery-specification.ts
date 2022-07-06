@@ -12,7 +12,7 @@ export class DeliverySpecification {
     ){
         this.deliverySpecificationId = deliverySpecificationId || null;
         this.arrivalTime = arrivalTime || new Date();
-        this.deliveryAddress = deliveryAddress || null
+        this.deliveryAddress = deliveryAddress || new DeliveryAddress();
     }
 }
 

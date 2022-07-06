@@ -1,0 +1,41 @@
+<div style="padding: 20px;">
+    <div style="padding: 20px;">
+        <h2>Create vehicle</h2>
+        <form class="example-form">
+            <mat-form-field appearance="fill">
+                <mat-label>Vehicle type</mat-label>
+                <mat-select [(ngModel)]="newVehicle.vehicleCategory" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let item of vehicleCategoryKeys" [value]="item" >{{item}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Brand</mat-label>
+                    <input name='name' [(ngModel)]="newVehicle.brand" matInput>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Model</mat-label>
+                    <input name='name' [(ngModel)]="newVehicle.model" matInput>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Engine</mat-label>
+                    <input name='name' [(ngModel)]="newVehicle.engine" matInput>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Capacity</mat-label>
+                    <input name='name' [(ngModel)]="newVehicle.capacity" matInput>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>License plate</mat-label>
+                    <input name='name' [(ngModel)]="newVehicle.licensePlate" matInput>
+                </mat-form-field>
+                <div>
+                    <button (click)="addNewVehicle()" mat-raised-button color="primary">Add
+                        vehicle</button>
+                </div>
+        </form>
+    </div>
+    <mat-divider></mat-divider>
+    <div style="padding: 20px;">
+        <app-vehicles-list></app-vehicles-list>
+    </div>
+</div>

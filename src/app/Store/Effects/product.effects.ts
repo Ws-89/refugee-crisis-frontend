@@ -46,7 +46,7 @@ updateProduct$ = createEffect(() =>
   ))
 );
 
-deleteMovie$ = createEffect(() =>
+deleteProduct$ = createEffect(() =>
     this.action$.pipe(
       ofType(deleteProduct),
       mergeMap(({ productId }) =>

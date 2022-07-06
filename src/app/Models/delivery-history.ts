@@ -8,9 +8,9 @@ export class DeliveryHistory {
     productDelivery: ProductDelivery;
 
     constructor(
-        deliveryHistoryId: number,
-        handlingEvents: HandlingEvent[],
-        productDelivery: ProductDelivery
+        deliveryHistoryId?: number,
+        handlingEvents?: HandlingEvent[],
+        productDelivery?: ProductDelivery
     ){
         this.deliveryHistoryId = deliveryHistoryId || null;
         this.handlingEvents = handlingEvents || new Array<HandlingEvent>();

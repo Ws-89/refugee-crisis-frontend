@@ -1,6 +1,7 @@
 import { getSelectors, RouterReducerState } from "@ngrx/router-store";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { Product } from "src/app/Models/product";
+import { Status } from "src/app/Models/status.enum";
 import { ProductState } from "../Reducers/product.reducers";
 
 export const productSelector = createSelector (
@@ -13,6 +14,11 @@ export const productSelector = createSelector (
 export const greater = (weight: number) =>
   createSelector(productSelector, (products) => {
   return products.filter((product: Product) => product.weight >= weight);
+});
+
+export const availableProducts = (available: Status) =>
+  createSelector(productSelector, (products) => {
+  return products.filter((product: Product) => product.reserved == available);
 });
 
 const routeParams = createSelector(
