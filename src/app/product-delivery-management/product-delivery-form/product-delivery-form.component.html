@@ -45,8 +45,9 @@
     <div style="padding: 20px;">
         <app-product-to-add-to-delivery-list (selectProduct)="selectProduct($event)"></app-product-to-add-to-delivery-list>
     </div>
+    <div>
+      <button (click)="assignProductToPackage()" style="margin-top: 3%;" mat-raised-button color="primary">Assign selected product to selected package</button>
+    </div>
+  
   </div>
-  <div>
-    <button (click)="assignProductToPackage()" style="margin-top: 3%;" mat-raised-button color="primary">Assign selected product to selected package</button>
-  </div>
-
+  

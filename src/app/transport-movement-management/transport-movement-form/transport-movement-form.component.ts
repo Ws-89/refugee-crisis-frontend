@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { DeliveryAddress } from 'src/app/Models/delivery-address';
+import { DeliveryHistory } from 'src/app/Models/delivery-history';
 import { HandlingEvent } from 'src/app/Models/handling-event';
 import { ProductDelivery } from 'src/app/Models/product-delivery';
 import { TransportMovement } from 'src/app/Models/transport-movement';
@@ -25,15 +26,18 @@ export class TransportMovementFormComponent implements OnInit {
   newTransportMovement: TransportMovement = new TransportMovement();
   productDeliveryIndex: number;
   transportMovementIndex: number;
+
   newHandlingEvent: HandlingEvent = new HandlingEvent();
+  
+  
 
   constructor(private store: Store, public dialog: MatDialog, private handlingEventService: HandlingEventService) { }
 
   ngOnInit(): void {
-    this.getVehicleList();
     this.getProductDeliveryList();
     this.getAllDeliveryAddresses();
     this.getTransportMovements();
+    this.getVehicleList();
   }
 
   selectTransportMovement(transportMovement: TransportMovement){
@@ -70,6 +74,17 @@ export class TransportMovementFormComponent implements OnInit {
       }})
     })
   }
+
+  addAdditionalAddressDialog(){
+    let dialogRef = this.dialog.open(DeliveryAddressListComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.newTransportMovement = Object.assign({}, this.newTransportMovement, { deliverySpecification: { 
+        deliveryAddress: {...result}
+      }})
+    })
+  }
+
 
   openAddVehicleDialog(){
     let dialogRef = this.dialog.open(AddVehicleDialogComponent);
@@ -112,6 +127,8 @@ export class TransportMovementFormComponent implements OnInit {
 
   addDeliveryToTransport(){
     // this.store.dispatch(addHandlingEvent(this.newHandlingEvent, this.productDeliveryIndex, this.transportMovementIndex))
+    // setting delivery history to null prevents lazy loading fail
+    this.newHandlingEvent.deliveryHistory = null;
     this.handlingEventService.addHandlingEvent(this.newHandlingEvent, this.productDeliveryIndex, this.transportMovementIndex).subscribe(res => {
       this.getProductDeliveryList(),
       this.getTransportMovements()

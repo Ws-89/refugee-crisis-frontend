@@ -1,19 +1,4 @@
-<!-- <div style="height: 100%;">
-    <section class="display-movie" *ngIf="transportMovement$ | async as transportMovement"> -->
-        
-            <!-- <h1> {{transportMovement.description}} </h1>
-            <h3> {{ transportMovement.totalWeight }} million </h3> -->
-            <!-- <ng-container  *ngFor="let product of transportMovement.handlingEvents let i = index">
-                <tr >
-                    <td class="col">{{ product }}</td> -->
-                    <!-- <td class="col">{{ product.weight }}</td>
-                    <button mat-button (click)="deleteProductFromPackage(productDelivery.deliveryId, product.productId)">Delete</button> -->
-                <!-- </tr>
-            </ng-container> -->
-            <!-- <button mat-button routerLink="/product-delivery">Return</button> -->
-<!--         
-    </section>
-</div> -->
+<button routerLink="/transport-movement" style="margin-top: 3%;" mat-raised-button color="primary">Back</button>
 <section class="display-movie" *ngIf="transportMovement$ | async as transportMovement"> 
 
     <div>transport movement id : {{transportMovement.transportMovementId}} </div>
@@ -47,6 +32,7 @@
                                 <th class="col">Destination address</th>
                                 <th class="col">Package status</th>
                                 <th class="col">Status initalization at</th>
+                                <th class="col">Delete assignnment</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,6 +53,7 @@
                                 </td>
                                 <td class="col">{{ delivery.state }}</td>  
                                 <td class="col">{{ delivery.timeStamp }}</td> 
+                                <td class="col"><button (click)="removeInitialization(delivery.handlingEventId)" style="margin-top: 3%;" mat-raised-button color="primary">Remove item</button></td>
                             </tr>
                         </tbody>
                     </table>

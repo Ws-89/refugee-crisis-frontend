@@ -3,10 +3,11 @@ import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 
 import { ProductState } from '../../Store/Reducers/product.reducers';
-import {  productSelector } from '../../Store/Selector/product.selector';
+import {  productSelector, availableProducts } from '../../Store/Selector/product.selector';
 import { takeUntil } from 'rxjs/operators';
 import { deleteProduct,  updateProduct } from '../../Store/Actions/product.action';
 import { Product } from 'src/app/Models/product';
+import { Status } from 'src/app/Models/status.enum';
 
 @Component({
   selector: 'app-product-list',
@@ -17,7 +18,7 @@ import { Product } from 'src/app/Models/product';
 export class ProductListComponent implements OnInit {
   done = new Subject();
   selectedIndex: number = null;
-  products$ = this.store.pipe(select(productSelector))
+  products$ = this.store.pipe(select(availableProducts(Status.Available)))
   weight = 0;
   products: Product[];
  

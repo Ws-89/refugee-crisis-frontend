@@ -40,7 +40,7 @@ export class HandlingEventService {
     );
   }
 
-  deleteHandlingEvent(handlingEventId: number) {
+  deleteHandlingEvent(handlingEventId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${this.url}/delete/${handlingEventId}`).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);

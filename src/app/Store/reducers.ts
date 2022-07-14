@@ -7,6 +7,7 @@ import { ActionReducer, ActionReducerMap, MetaReducer } from "@ngrx/store";
 import { ProductDelivery } from "../Models/product-delivery";
 
 import { deliveryAddressReducer } from "./Reducers/delivery-address.reducers";
+// import { handlingEventReducer } from "./Reducers/handling-event.reducers";
 
 import { productDeliveryReducer, ProductDeliveryState } from "./Reducers/product-delivery.reducers";
 import { productReducer } from "./Reducers/product.reducers";

@@ -14,7 +14,7 @@
 //     this.action$.pipe(
 //       ofType(getHandlingEvents),
 //       exhaustMap(({transportMovementId}) => 
-//         this.handlingEventService.getHandlingEvents(transportMovementId).pipe(
+//         this.handlingEventService.getHandlingEventsByTransportId(transportMovementId).pipe(
 //           map((handlingEvents) => getHandlingEventsSuccess(handlingEvents)),
 //           catchError(() => EMPTY)
 //       )
@@ -46,6 +46,7 @@
 // deleteHandlingEvent$ = createEffect(() =>
 //     this.action$.pipe(
 //       ofType(deleteHandlingEvent),
+//       tap(e => console.log('tutaj')),
 //       mergeMap(({ handlingEventId }) =>
 //         this.handlingEventService.deleteHandlingEvent(handlingEventId).pipe(
 //           map(() => deleteHandlingEventSuccess(handlingEventId)),

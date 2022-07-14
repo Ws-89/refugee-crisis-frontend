@@ -1,19 +1,21 @@
 <div style="height: 100%;">
     <section class="display-movie" *ngIf="product$ | async as product">
-        <mat-card style="height: 300px; width: 300px;">
             <button mat-button *ngIf="editFlag == false"(click)="enableEdit(product)">Edit</button>
             <button mat-button *ngIf="editFlag == true" (click)="cancelEdit()">Cancel edit</button>
             <button mat-button routerLink="/products">Return</button>
-            <h1> {{product.name}} </h1>
-            <h2> {{ product.expirationDate | date }} </h2>
-            <h3> {{ product.weight }} million </h3>
-            <mat-form-field *ngIf="editFlag == true" class="example-full-width" appearance="fill">
+            <h3>Product name: {{product.name}} </h3>
+            <h3>expiration date: {{ product.expirationDate | date }} </h3>
+            <h3>description: {{ product.description }} </h3>
+            <h3>weight: {{ product.weight }}</h3>
+            <h3>amount: {{ product.amount }}</h3>
+            <h3>is fragile: {{ product.fragile }}</h3>
+            <h3>state: {{ product.state }}</h3>
+            <h3>category: {{ product.category.categoryName }}</h3>
+            <h3>purpose: {{ product.category.attr1Caption }}</h3>
+            <mat-form-field *ngIf="editFlag == true" class="example-full-width" >
                 <mat-label>Weight</mat-label>
                 <input matInput type="number" placeholder="In kilograms" [(ngModel)]="weight">
             </mat-form-field>
             <button mat-button *ngIf="editFlag == true" (click)="update(product)">Update</button>
-        </mat-card>
     </section>
 </div>
-
-cancelEdit
