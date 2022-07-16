@@ -1,4 +1,4 @@
-<div class="products-list">
+<!-- <div class="products-list">
     <section *ngFor="let vehicle of vehicles$ | async;let i = index">
         <mat-card style="position: relative;">
             <div style="position: absolute; right: 20px">
@@ -21,4 +21,37 @@
             </mat-card-actions>
         </mat-card>
     </section>
+</div> -->
+<div class="container">
+    <div class="row">
+        <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
+            <thead>
+                <tr>
+                    <th class="col">Vehicle ID</th>
+                    <th class="col">Brand</th>
+                    <th class="col">Model</th>
+                    <th class="col">Engine</th>
+                    <th class="col">Capacity</th>
+                    <th class="col">Vehicle category</th>
+                    <th class="col">License plate</th>
+                </tr>
+            </thead>
+            <tbody >
+                <ng-container  *ngFor="let vehicle of vehicles$ | async; let i = index">
+                    <tr>
+                        <td class="col">{{ vehicle.vehicleId }}</td>
+                        <td class="col">{{ vehicle.brand }}</td>
+                        <td class="col">{{ vehicle.model }}</td>
+                        <td class="col">{{ vehicle.engine }}</td>
+                        <td class="col">{{ vehicle.capacity }}</td>
+                        <td class="col">{{ vehicle.vehicleCategory }}</td>
+                        <td class="col">{{ vehicle.licensePlate }}</td>
+                        <td><button mat-button (click)="deleteVehicle(vehicle.vehicleId)">Delete</button></td>
+                        <td><button mat-button routerLink="/vehicles/{{ vehicle.vehicleId }}">Show details</button></td>
+                    </tr> 
+                </ng-container>
+                
+            </tbody>
+        </table>
+    </div>
 </div>

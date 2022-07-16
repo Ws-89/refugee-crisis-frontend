@@ -9,14 +9,23 @@
     <button mat-raised-button (click)="openDeliveryAddressDialog()">Select delivery address</button>
   </div>
   <div>
+    <button mat-raised-button (click)="addAdditionalAddressDialog()">Select to add additional delivery addresses</button>
+  </div>
+  <div>
     <button mat-raised-button (click)="openAddVehicleDialog()">Select vehicle</button>
   </div>
-  <mat-form-field appearance="fill">
+  <!-- <mat-form-field appearance="fill">
     <mat-label>Arrival time</mat-label>
-    <input name='expirationDate' [(ngModel)]="newTransportMovement.deliverySpecification.arrivalTime" matInput [matDatepicker]="picker">
+    <input name='expirationDate' [(ngModel)]="newTransportMovementSpecification.arrivalTime" matInput [matDatepicker]="picker">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Arrival time</mat-label>
+    <input name='expirationDate' [(ngModel)]="newTransportMovementSpecification.departureTime" matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field> -->
   <div>
     <button (click)="addNewTransportMovement()" style="margin-top: 3%;" mat-raised-button color="primary">Add Transport movement</button>
   </div>
@@ -26,6 +35,9 @@
 
 <mat-divider></mat-divider>
 <app-product-transport (selectProductDelivery)="selectProductDelivery($event)"></app-product-transport>
+<section class="example-section">
+  <mat-checkbox color="primary" [(ngModel)]="assignPackageToTransportRequest.finalDestination" class="example-margin">Is this final destination?</mat-checkbox>
+</section>
 <div>
   <button (click)="addDeliveryToTransport()" style="margin-top: 3%;" mat-raised-button color="primary">Add delivery to planned transport</button>
 </div>

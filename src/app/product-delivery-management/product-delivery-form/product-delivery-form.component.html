@@ -28,9 +28,11 @@
         <div>
           <button mat-raised-button (click)="openStartingAddressDialog()" style="margin-top: 3%;">Select starting address</button>
         </div>
+        <div *ngIf="isStartAddressPicked == true"><button mat-raised-button color="primary" (click)="removeStartAddress()" style="margin-top: 3%;">Remove start address</button></div>
         <div>
           <button mat-raised-button (click)="openDeliveryAddressDialog()" style="margin-top: 3%;">Select delivery address</button>
         </div>
+        <div *ngIf="isDeliveryAddresPicked == true"><button mat-raised-button color="primary" (click)="removeDeliveryAddress()" style="margin-top: 3%;">Remove delivery address</button></div>
         <div>
           <button (click)="addNewProductDelivery()" style="margin-top: 3%;" mat-raised-button color="primary">Add Product delivery</button>
         </div>

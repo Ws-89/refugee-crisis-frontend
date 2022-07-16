@@ -1,26 +1,32 @@
 import { DeliveryAddress } from "./delivery-address";
-import { DeliverySpecification } from "./delivery-specification";
-import { HandlingEvent } from "./handling-event";
+import { DeliveryHistory } from "./delivery-history";
+import { TransportMovementSpecification } from "./transport-movement-specification";
 import { Vehicle } from "./vehicle";
 
 export class TransportMovement {
     transportMovementId: number;
-    handlingEvents: HandlingEvent[];
-    deliverySpecification: DeliverySpecification;
+    wayBills: DeliveryHistory[];
+    transportMovementSpecifications: TransportMovementSpecification[];
+    weightOfTheGoods: number;
     startingAddress: DeliveryAddress;
+    deliveryAddress: DeliveryAddress;
     vehicle: Vehicle;
 
     constructor(
         transportMovementId?: number,
-        handlingEvents?: HandlingEvent[],
-        deliverySpecification?: DeliverySpecification,
+        wayBills?: DeliveryHistory[],
+        transportMovementSpecifications?: TransportMovementSpecification[],
+        weightOfTheGoods?: number,
         startingAddress?: DeliveryAddress,
+        deliveryAddress?: DeliveryAddress,
         vehicle?: Vehicle
     ){
         this.transportMovementId = transportMovementId || null;
-        this.handlingEvents = handlingEvents || new Array<HandlingEvent>();
-        this.deliverySpecification = deliverySpecification || new DeliverySpecification;
+        this.wayBills = wayBills || new Array<DeliveryHistory>();
+        this.transportMovementSpecifications = transportMovementSpecifications || new Array<TransportMovementSpecification>();
+        this.weightOfTheGoods = weightOfTheGoods || 0;
         this.startingAddress = startingAddress || new DeliveryAddress;
+        this.deliveryAddress = deliveryAddress || new DeliveryAddress;
         this.vehicle = vehicle || new Vehicle;
     }    
 

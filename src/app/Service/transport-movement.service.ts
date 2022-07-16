@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AssignPackageToTransportRequest } from '../Models/assign-package-to-transport-request';
 import { TransportMovement } from '../Models/transport-movement';
 
 @Injectable({
@@ -15,6 +16,15 @@ export class TransportMovementService {
 
   getTransportMovementList(): Observable<ReadonlyArray<TransportMovement>>{
     return this.httpClient.get<ReadonlyArray<TransportMovement>>(`${this.baseUrl}/${this.url}/list`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+   }
+
+   getTransportMovementDetails(transportId: number): Observable<TransportMovement>{
+    return this.httpClient.get<TransportMovement>(`${this.baseUrl}/${this.url}/get/${transportId}`).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);
         return throwError(error);
@@ -42,6 +52,15 @@ export class TransportMovementService {
 
   deleteTransportMovement(transportMovementId: number) {
     return this.httpClient.delete(`${this.baseUrl}/${this.url}/delete/${transportMovementId}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
+
+  addPackageToTransport(assignPackageToTransportRequest: AssignPackageToTransportRequest): Observable<TransportMovement> {
+    return this.httpClient.post<TransportMovement>(`${this.baseUrl}/${this.url}/add-package-to-transport`, assignPackageToTransportRequest).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);
         return throwError(error);

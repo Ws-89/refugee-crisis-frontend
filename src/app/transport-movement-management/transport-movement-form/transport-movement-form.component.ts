@@ -2,19 +2,21 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import { AssignPackageToTransportRequest } from 'src/app/Models/assign-package-to-transport-request';
 import { DeliveryAddress } from 'src/app/Models/delivery-address';
 import { DeliveryHistory } from 'src/app/Models/delivery-history';
-import { HandlingEvent } from 'src/app/Models/handling-event';
 import { ProductDelivery } from 'src/app/Models/product-delivery';
 import { TransportMovement } from 'src/app/Models/transport-movement';
+import { TransportMovementSpecification } from 'src/app/Models/transport-movement-specification';
 import { DeliveryAddressListComponent } from 'src/app/product-delivery-management/delivery-address-list/delivery-address-list.component';
 import { DeliveryAddressesComponent } from 'src/app/product-delivery-management/delivery-addresses/delivery-addresses.component';
-import { HandlingEventService } from 'src/app/Service/handling-event.service';
+import { TransportMovementService } from 'src/app/Service/transport-movement.service';
 import { addDeliveryAddress, getDeliveryAddresses } from 'src/app/Store/Actions/delivery-address.action';
 // import { addHandlingEvent, getHandlingEvents } from 'src/app/Store/Actions/handling-events.actions';
 import { getProductDeliveryList } from 'src/app/Store/Actions/product-delivery.action';
 import { addTransportMovement, getTransportMovements } from 'src/app/Store/Actions/transport-movement.action';
 import { getVehicles } from 'src/app/Store/Actions/vehicle.action';
+import { AddTransportSpecificationDialogComponent } from '../add-transport-specification-dialog/add-transport-specification-dialog.component';
 import { AddVehicleDialogComponent } from '../add-vehicle-dialog/add-vehicle-dialog.component';
 
 @Component({
@@ -24,14 +26,13 @@ import { AddVehicleDialogComponent } from '../add-vehicle-dialog/add-vehicle-dia
 })
 export class TransportMovementFormComponent implements OnInit {
   newTransportMovement: TransportMovement = new TransportMovement();
-  productDeliveryIndex: number;
-  transportMovementIndex: number;
-
-  newHandlingEvent: HandlingEvent = new HandlingEvent();
+  assignPackageToTransportRequest: AssignPackageToTransportRequest = new AssignPackageToTransportRequest();
+  // productDeliveryIndex: number;
+  // transportMovementIndex: number;
+  // finalDestination: boolean;
   
-  
 
-  constructor(private store: Store, public dialog: MatDialog, private handlingEventService: HandlingEventService) { }
+  constructor(private store: Store, public dialog: MatDialog, private transportMovementService: TransportMovementService) { }
 
   ngOnInit(): void {
     this.getProductDeliveryList();
@@ -41,11 +42,11 @@ export class TransportMovementFormComponent implements OnInit {
   }
 
   selectTransportMovement(transportMovement: TransportMovement){
-    this.transportMovementIndex = transportMovement.transportMovementId;
+    this.assignPackageToTransportRequest.transportId = transportMovement.transportMovementId;
   }
 
   selectProductDelivery(productDelivery: ProductDelivery){
-    this.productDeliveryIndex = productDelivery.deliveryId;
+    this.assignPackageToTransportRequest.deliveryId = productDelivery.deliveryId;
   }
 
   openAddAddressDialog(){
@@ -69,19 +70,22 @@ export class TransportMovementFormComponent implements OnInit {
     let dialogRef = this.dialog.open(DeliveryAddressListComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.newTransportMovement = Object.assign({}, this.newTransportMovement, { deliverySpecification: { 
-        deliveryAddress: {...result}
-      }})
+      this.newTransportMovement = Object.assign({}, this.newTransportMovement, { deliveryAddress:  {...result}
+      })
     })
   }
 
   addAdditionalAddressDialog(){
-    let dialogRef = this.dialog.open(DeliveryAddressListComponent);
+    let dialogRef = this.dialog.open(AddTransportSpecificationDialogComponent, {autoFocus: false,
+      maxHeight: '90vh'});
 
+    
     dialogRef.afterClosed().subscribe(result => {
-      this.newTransportMovement = Object.assign({}, this.newTransportMovement, { deliverySpecification: { 
-        deliveryAddress: {...result}
-      }})
+      let transportMovementSpecifications = this.newTransportMovement.transportMovementSpecifications;
+      this.newTransportMovement = Object.assign({}, this.newTransportMovement, { transportMovementSpecifications: 
+        [...transportMovementSpecifications, {...result}]
+    })
+    console.log(this.newTransportMovement)
     })
   }
 
@@ -119,6 +123,7 @@ export class TransportMovementFormComponent implements OnInit {
     // erasing this array before dispatching prevents program from reading nested arrays
     this.newTransportMovement.vehicle.transportMovement = [];
     this.store.dispatch(addTransportMovement(this.newTransportMovement))
+    this.newTransportMovement = new TransportMovement;
   }
 
   addNewDeliveryAddress(deliveryAddress: DeliveryAddress): void {
@@ -126,22 +131,12 @@ export class TransportMovementFormComponent implements OnInit {
   }
 
   addDeliveryToTransport(){
-    // this.store.dispatch(addHandlingEvent(this.newHandlingEvent, this.productDeliveryIndex, this.transportMovementIndex))
-    // setting delivery history to null prevents lazy loading fail
-    this.newHandlingEvent.deliveryHistory = null;
-    this.handlingEventService.addHandlingEvent(this.newHandlingEvent, this.productDeliveryIndex, this.transportMovementIndex).subscribe(res => {
+    this.transportMovementService.addPackageToTransport(this.assignPackageToTransportRequest).subscribe(res => {
       this.getProductDeliveryList(),
       this.getTransportMovements()
     }
       
-    )
-
-
-    
-
-    
-        
-      
+    )  
   }
 
 

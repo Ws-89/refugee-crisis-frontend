@@ -27,6 +27,8 @@ export class ProductDeliveryFormComponent implements OnInit {
   maximumCapacity$ = this.capacityStore.pipe(select(maxiumumCapacitySelector));
   productDeliveryIndex: number = 0;
   productIndex: number = 0;
+  isStartAddressPicked: boolean;
+  isDeliveryAddresPicked: boolean;
 
   constructor(private store: Store, private capacityStore: Store<MaxiumCapacityState>, private dialog: MatDialog, private productDeliveryService: ProductDeliveryService) { }
 
@@ -59,7 +61,8 @@ export class ProductDeliveryFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.newProductDelivery = Object.assign({}, this.newProductDelivery, { deliverySpecification: { 
         deliveryAddress: {...result}
-      }})
+      }});
+      this.isDeliveryAddresPicked = true;
     })
   }
 
@@ -69,7 +72,18 @@ export class ProductDeliveryFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.newProductDelivery = Object.assign({}, this.newProductDelivery, { startingAddress:  {...result}
       })
+      this.isStartAddressPicked = true;
     })
+  }
+
+  removeStartAddress(){
+    this.newProductDelivery.startingAddress = new DeliveryAddress();
+    this.isStartAddressPicked = false;
+  }
+
+  removeDeliveryAddress(){
+    this.newProductDelivery.deliverySpecification.deliveryAddress = new DeliveryAddress();
+    this.isDeliveryAddresPicked = false;
   }
 
   getMaxiumCapacity(): void {

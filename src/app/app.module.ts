@@ -20,6 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatTableModule } from "@angular/material/table";
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { productReducer } from './Store/Reducers/product.reducers';
 import { ProductListComponent } from './products-management/product-list/product-list.component';
@@ -51,6 +52,7 @@ import { AddVehicleDialogComponent } from './transport-movement-management/add-v
 import { TransportMovementListComponent } from './transport-movement-management/transport-movement-list/transport-movement-list.component';
 import { TransportMovementEffects } from './Store/Effects/transport-movement.effects';
 import { TransportDetailsComponent } from './transport-movement-management/transport-details/transport-details.component';
+import { AddTransportSpecificationDialogComponent } from './transport-movement-management/add-transport-specification-dialog/add-transport-specification-dialog.component';
 // import { handlingEventSelector } from './Store/Selector/handling-events.selector';
 // import { HandlingEventEffects } from './Store/Effects/handling-events.effects';
 
@@ -79,6 +81,8 @@ import { TransportDetailsComponent } from './transport-movement-management/trans
     AddVehicleDialogComponent,
     TransportMovementListComponent,
     TransportDetailsComponent,
+    AddTransportSpecificationDialogComponent,
+   
   ],
   // entryComponents: [ModalFormComponent],
   imports: [
@@ -97,6 +101,7 @@ import { TransportDetailsComponent } from './transport-movement-management/trans
     MatDialogModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatCheckboxModule,
     
     StoreModule.forRoot(
       reducers, { runtimeChecks: {

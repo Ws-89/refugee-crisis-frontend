@@ -27,13 +27,16 @@
                 <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
                     <thead>
                         <tr>
-                            <th class="col">Full Name</th>
-                            <th class="col">Age</th>
-                            <th class="col">Job Title</th>
-                            <th class="col">Location</th>
-                            <th class="col">Capacity</th>
+                            <th class="col">Package ID</th>
+                            <th class="col">Description</th>
+                            <th class="col">Total weight</th>
+                            <th class="col">Pickup address</th>
+                            <th class="col">Destination address</th>
+                            <th class="col">Date of admission</th>
+                            <th class="col">Delivery time requirements</th>
                             <th class="col">Delete</th>
                             <th class="col">Edit</th>
+                            <th class="col">Show details</th>
                         </tr>
                     </thead>
                     <tbody >
@@ -41,9 +44,24 @@
                             <tr [ngClass] = "{'highlight': productDelivery.deliveryId == selectedDeliveryIndex}">
                                 <td class="col">{{ productDelivery.deliveryId }}</td>
                                 <td class="col">{{ productDelivery.description }}</td>
-                                <button mat-button (click)="delete(productDelivery.deliveryId)">Delete</button>
-                                <button mat-button (click)="select(productDelivery)">Select this product</button>
-                                <button mat-button routerLink="/product-delivery/{{ productDelivery.deliveryId }}">Show details</button>
+                                <td class="col">{{ productDelivery.totalWeight }}</td>
+                                <td class="col">
+                                    <div>{{ productDelivery.startingAddress.street }}</div>
+                                    <div>{{ productDelivery.startingAddress.city }}</div>
+                                    <div>{{ productDelivery.startingAddress.postCode }}</div>
+                                    <div>{{ productDelivery.startingAddress.state }}</div>
+                                </td>
+                                <td class="col">
+                                    <div>{{ productDelivery.deliverySpecification.deliveryAddress.street }}</div>
+                                    <div>{{ productDelivery.deliverySpecification.deliveryAddress.city }}</div>
+                                    <div>{{ productDelivery.deliverySpecification.deliveryAddress.postCode }}</div>
+                                    <div>{{ productDelivery.deliverySpecification.deliveryAddress.state }}</div>
+                                </td>
+                                <td class="col">{{ productDelivery.deliverySpecification.departureTime }}</td>
+                                <td class="col">{{ productDelivery.deliverySpecification.arrivalTime }}</td>
+                                <td><button mat-button (click)="delete(productDelivery.deliveryId)">Delete</button></td>
+                                <td><button mat-button (click)="select(productDelivery)">Select this product</button></td>
+                                <td><button mat-button routerLink="/product-delivery/{{ productDelivery.deliveryId }}">Show details</button></td>
                             </tr>
                         </ng-container>
                         
