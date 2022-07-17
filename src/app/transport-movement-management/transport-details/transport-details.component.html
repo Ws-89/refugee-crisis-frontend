@@ -1,18 +1,20 @@
+   
 <button routerLink="/transport-movement" style="margin-top: 3%;" mat-raised-button color="primary">Back</button>
-<section class="display-movie" *ngIf="transportMovement$ | async as transportMovement"> 
+<section class="display-movie" >
+    <!-- *ngIf="details$ | async as details"  -->
 
-    <div>transport movement id : {{transportMovement.transportMovementId}} </div>
-    <!-- <div>arrival time : {{ transportMovement.deliverySpecification.arrivalTime }}</div>
+    <div > transport movement id : {{ detailedTransportMovement.transportMovementId }}</div>
+    <div>arrival time : </div>
     
-    <div> delivery address street: {{transportMovement.deliverySpecification.deliveryAddress.street }}</div>
-    <div> delivery address city: {{transportMovement.deliverySpecification.deliveryAddress.city }}</div>
-    <div> delivery address state: {{transportMovement.deliverySpecification.deliveryAddress.state }}</div>
-    <div> delivery address postCode: {{transportMovement.deliverySpecification.deliveryAddress.postCode }}</div> -->
+    <div> delivery address street: {{detailedTransportMovement.deliveryAddress.street }}</div>
+    <div> delivery address city: {{detailedTransportMovement.deliveryAddress.city }}</div>
+    <div> delivery address state: {{detailedTransportMovement.deliveryAddress.state }}</div>
+    <div> delivery address postCode: {{detailedTransportMovement.deliveryAddress.postCode }}</div>
 
-    <div> starting address street: {{transportMovement.startingAddress.street }}</div>
-    <div> starting address city: {{transportMovement.startingAddress.city }}</div>
-    <div> starting address state: {{transportMovement.startingAddress.state }}</div>
-    <div> starting address postCode: {{transportMovement.startingAddress.postCode }}</div>
+    <div> starting address street: {{detailedTransportMovement.startingAddress.street }}</div>
+    <div> starting address city: {{detailedTransportMovement.startingAddress.city }}</div>
+    <div> starting address state: {{detailedTransportMovement.startingAddress.state }}</div>
+    <div> starting address postCode: {{detailedTransportMovement.startingAddress.postCode }}</div>
    
     <div class="row">
         <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
@@ -35,31 +37,68 @@
                                 <th class="col">Delete assignnment</th>
                             </tr>
                         </thead>
-                        <!-- <tbody>
-                            <tr *ngFor="let delivery of transportMovement.handlingEvents let i = index" >
-                                <td class="col">{{ delivery.deliveryHistory.productDelivery.description }}</td>
-                                <td class="col">{{ delivery.deliveryHistory.productDelivery.totalWeight }}</td>
+                        <tbody>
+                            <tr *ngFor="let delivery of detailedTransportMovement.wayBills let i = index" >
+                                <td class="col">{{ delivery.productDelivery.description }}</td>
+                                <td class="col">{{ delivery.productDelivery.totalWeight }}</td>
                                 <td class="col">
-                                    <div>{{ delivery.deliveryHistory.productDelivery.startingAddress.street }}</div>
-                                    <div>{{ delivery.deliveryHistory.productDelivery.startingAddress.city }}</div>
-                                    <div>{{ delivery.deliveryHistory.productDelivery.startingAddress.postCode }}</div>
-                                    <div>{{ delivery.deliveryHistory.productDelivery.startingAddress.state }}</div>
+                                    <div>{{ delivery.productDelivery.startingAddress.street }}</div>
+                                    <div>{{ delivery.productDelivery.startingAddress.city }}</div>
+                                    <div>{{ delivery.productDelivery.startingAddress.postCode }}</div>
+                                    <div>{{ delivery.productDelivery.startingAddress.state }}</div>
                                 </td>
                                 <td class="col">
-                                    <div>{{ delivery.deliveryHistory.productDelivery.deliverySpecification.deliveryAddress.street }}</div>
-                                    <div>{{ delivery.deliveryHistory.productDelivery.deliverySpecification.deliveryAddress.city }}</div>
-                                    <div>{{ delivery.deliveryHistory.productDelivery.deliverySpecification.deliveryAddress.postCode }}</div>
-                                    <div>{{ delivery.deliveryHistory.productDelivery.deliverySpecification.deliveryAddress.state }}</div>
+                                    <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.street }}</div>
+                                    <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.city }}</div>
+                                    <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.postCode }}</div>
+                                    <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.state }}</div>
                                 </td>
-                                <td class="col">{{ delivery.state }}</td>  
-                                <td class="col">{{ delivery.timeStamp }}</td> 
-                                <td class="col"><button (click)="removeInitialization(delivery.handlingEventId)" style="margin-top: 3%;" mat-raised-button color="primary">Remove item</button></td>
+                                <td class="col"><button (click)="removePackage(detailedTransportMovement.transportMovementId, delivery.deliveryHistoryId)" style="margin-top: 3%;" mat-raised-button color="primary">Remove item</button></td>
                             </tr>
-                        </tbody> -->
+                        </tbody>
                     </table>
                     
                 </tr>
                 </tbody>
         </table></div>
 </section> 
-
+<button mat-button (click)="generateARoute(detailedTransportMovement.transportMovementId)" mat-raised-button color="primary">Change route</button>
+<div class="row">
+    <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
+        <thead>
+            <tr>
+                <th class="col">Route</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr >
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="col">Transport stops at</th>
+                            <th class="col">Estimated arrival time</th>
+                            <th class="col">Change order up</th>
+                            <th class="col">Change order down</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr *ngFor="let delivery of detailedTransportMovement.transportMovementSpecifications let i = index" >
+                            <td class="col">
+                                <div>{{ delivery.deliveryAddress.street }}</div>
+                                <div>{{ delivery.deliveryAddress.city }}</div>
+                                <div>{{ delivery.deliveryAddress.postCode }}</div>
+                                <div>{{ delivery.deliveryAddress.state }}</div>
+                            </td>
+                            <td>{{ delivery.arrivalTime }}</td>
+                            <td><button style="margin-top: 3%;" mat-raised-button color="primary" 
+                                (click)="switchOneItemUpOnRouteList(detailedTransportMovement.transportMovementId, delivery.transportMovementSpecificationId)">Change order up</button></td>
+                            <td><button style="margin-top: 3%;" mat-raised-button color="primary"
+                                (click)="switchOneItemDownOnRouteList(detailedTransportMovement.transportMovementId, delivery.transportMovementSpecificationId)">Change order down</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </tr>
+            </tbody>
+    </table></div>

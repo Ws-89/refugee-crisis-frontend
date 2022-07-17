@@ -10,6 +10,8 @@ export class TransportMovement {
     weightOfTheGoods: number;
     startingAddress: DeliveryAddress;
     deliveryAddress: DeliveryAddress;
+    arrivalTime: Date;
+    departureTime: Date;
     vehicle: Vehicle;
 
     constructor(
@@ -19,6 +21,8 @@ export class TransportMovement {
         weightOfTheGoods?: number,
         startingAddress?: DeliveryAddress,
         deliveryAddress?: DeliveryAddress,
+        arrivalTime?: Date,
+        departureTime?: Date,
         vehicle?: Vehicle
     ){
         this.transportMovementId = transportMovementId || null;
@@ -27,6 +31,8 @@ export class TransportMovement {
         this.weightOfTheGoods = weightOfTheGoods || 0;
         this.startingAddress = startingAddress || new DeliveryAddress;
         this.deliveryAddress = deliveryAddress || new DeliveryAddress;
+        this.arrivalTime = arrivalTime || new Date();
+        this.departureTime = departureTime || new Date();
         this.vehicle = vehicle || new Vehicle;
     }    
 

@@ -9,23 +9,20 @@
     <button mat-raised-button (click)="openDeliveryAddressDialog()">Select delivery address</button>
   </div>
   <div>
-    <button mat-raised-button (click)="addAdditionalAddressDialog()">Select to add additional delivery addresses</button>
-  </div>
-  <div>
     <button mat-raised-button (click)="openAddVehicleDialog()">Select vehicle</button>
   </div>
-  <!-- <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill">
     <mat-label>Arrival time</mat-label>
-    <input name='expirationDate' [(ngModel)]="newTransportMovementSpecification.arrivalTime" matInput [matDatepicker]="picker">
+    <input name='expirationDate' [(ngModel)]="newTransportMovement.arrivalTime" matInput [matDatepicker]="picker">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>Arrival time</mat-label>
-    <input name='expirationDate' [(ngModel)]="newTransportMovementSpecification.departureTime" matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field> -->
+    <mat-label>Departure time</mat-label>
+    <input name='expirationDate' [(ngModel)]="newTransportMovement.departureTime" matInput [matDatepicker]="picker2">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
   <div>
     <button (click)="addNewTransportMovement()" style="margin-top: 3%;" mat-raised-button color="primary">Add Transport movement</button>
   </div>

@@ -69,11 +69,12 @@
                         <th class="col">State</th>
                         <th class="col">Category</th>
                         <th class="col">Purpose</th>
+                        <th class="col">Select</th>
                     </tr>
                 </thead>
                 <tbody >
                     <ng-container  *ngFor="let product of products$ | async; let i = index">
-                        <tr >
+                        <tr [ngClass] = "{'highlight': product.productId == selectedProductIndex}">
                             <td class="col">{{ product.productId }}</td>
                             <td class="col">{{ product.name }}</td>
                             <td class="col">{{ product.expirationDate }}</td>
@@ -84,6 +85,7 @@
                             <td class="col">{{ product.state }}</td>
                             <td class="col">{{ product.category.categoryName }}</td>
                             <td class="col">{{ product.category.attr1Caption }}</td>
+                            <button mat-button (click)="select(product)">Select this product</button>
                             <button mat-button routerLink='/products/{{product.productId}}'>Edit</button>
                             <button mat-button (click)="deleteProduct(product.productId)">Delete</button>
                         </tr>

@@ -32,6 +32,33 @@ export class TransportMovementService {
     );
    }
 
+   changeRouteOrderUp(transportId: number, transportMovementSpecificationId: number): Observable<TransportMovement>{
+    return this.httpClient.get<TransportMovement>(`${this.baseUrl}/${this.url}/${transportId}/change-route-order-up/${transportMovementSpecificationId}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+   }
+
+   changeRouteOrderDown(transportId: number, transportMovementSpecificationId: number): Observable<TransportMovement>{
+    return this.httpClient.get<TransportMovement>(`${this.baseUrl}/${this.url}/${transportId}/change-route-order-down/${transportMovementSpecificationId}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+   }
+
+   generateARoute(transportId: number): Observable<TransportMovement>{
+    return this.httpClient.get<TransportMovement>(`${this.baseUrl}/${this.url}/${transportId}/generate-a-route`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+   }
+
    addTransportMovement(transportMovement: TransportMovement): Observable<TransportMovement> {
     return this.httpClient.post<TransportMovement>(`${this.baseUrl}/${this.url}/save`, transportMovement).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -52,6 +79,15 @@ export class TransportMovementService {
 
   deleteTransportMovement(transportMovementId: number) {
     return this.httpClient.delete(`${this.baseUrl}/${this.url}/delete/${transportMovementId}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
+
+  removePackageFromTransportMovement(transportMovementId: number, packageId: number): Observable<TransportMovement> {
+    return this.httpClient.delete<TransportMovement>(`${this.baseUrl}/${this.url}/${transportMovementId}/delete-package/${packageId}`).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);
         return throwError(error);
