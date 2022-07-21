@@ -1,0 +1,176 @@
+<button routerLink="/cargo-management" style="margin-top: 3%;" mat-raised-button color="primary">Back</button>
+<!-- <div>
+    <button mat-raised-button (click)="openStartingAddressDialog()" style="margin-top: 3%;">Select starting address</button>
+  </div> -->
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select city</mat-label>
+    <mat-select [(ngModel)]="cargoActivity.deliveryAddress" [ngModelOptions]="{standalone: true}" #cityControl="ngModel" required>
+        <mat-option *ngFor="let item of cargoAddresses" [value]="item" >{{item.street}}, {{item.city}} </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Arrival time</mat-label>
+    <input name='expirationDate' [(ngModel)]="cargoActivity.timeStamp" matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+  <div>
+
+    <button mat-raised-button (click)="loadAllCargo()"style="margin-top: 3%;">
+    <!-- (click)="findCargoToBeLoaded(detailedTransportMovement.wayBills) && findCargoToBeUnloaded(detailedTransportMovement.wayBills)
+    && findRemainingCargo(detailedTransportMovement.wayBills)"  -->
+    
+    
+    Confirm place and date</button>
+  </div>
+
+
+
+<section class="display-movie" >
+    <!-- *ngIf="details$ | async as details"  -->
+
+    <div > transport movement id : {{ detailedTransportMovement.transportMovementId }}</div>
+    <div>arrival time : </div>
+    
+    <div> delivery address street: {{detailedTransportMovement.deliveryAddress.street }}</div>
+    <div> delivery address city: {{detailedTransportMovement.deliveryAddress.city }}</div>
+    <div> delivery address state: {{detailedTransportMovement.deliveryAddress.state }}</div>
+    <div> delivery address postCode: {{detailedTransportMovement.deliveryAddress.postCode }}</div>
+
+    <div> starting address street: {{detailedTransportMovement.startingAddress.street }}</div>
+    <div> starting address city: {{detailedTransportMovement.startingAddress.city }}</div>
+    <div> starting address state: {{detailedTransportMovement.startingAddress.state }}</div>
+    <div> starting address postCode: {{detailedTransportMovement.startingAddress.postCode }}</div>
+   
+    <div class="row">
+        <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
+            <thead>
+                <tr>
+                    <th class="col">Packages to be loaded</th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr >
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="col">Package description</th>
+                                <th class="col">Total weight</th>
+                                <th class="col">Starting address </th>
+                                <th class="col">Destination address</th>
+                                <th class="col">Package status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let delivery of cargoToBeLoaded let i = index" >
+                                    <td class="col">{{ delivery.productDelivery.description }}</td>
+                                    <td class="col">{{ delivery.productDelivery.totalWeight }}</td>
+                                    <td class="col">
+                                        <div>{{ delivery.productDelivery.startingAddress.street }}</div>
+                                        <div>{{ delivery.productDelivery.startingAddress.city }}</div>
+                                        <div>{{ delivery.productDelivery.startingAddress.postCode }}</div>
+                                        <div>{{ delivery.productDelivery.startingAddress.state }}</div>
+                                    </td>
+                                    <td class="col">
+                                        <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.street }}</div>
+                                        <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.city }}</div>
+                                        <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.postCode }}</div>
+                                        <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.state }}</div>
+                                    </td>
+                                    <td><button mat-button (click)="loadCargo(delivery.deliveryHistoryId)" mat-raised-button color="primary">Apply action</button> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </tr>
+                </tbody>
+        </table></div>
+        <div class="row">
+            <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
+                <thead>
+                    <tr>
+                        <th class="col">Packages to to be unloaded</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr >
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="col">Package description</th>
+                                    <th class="col">Total weight</th>
+                                    <th class="col">Starting address </th>
+                                    <th class="col">Destination address</th>
+                                    <th class="col">Package status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let delivery of cargoToBeUnloaded let i = index" >
+                                        <td class="col">{{ delivery.productDelivery.description }}</td>
+                                        <td class="col">{{ delivery.productDelivery.totalWeight }}</td>
+                                        <td class="col">
+                                            <div>{{ delivery.productDelivery.startingAddress.street }}</div>
+                                            <div>{{ delivery.productDelivery.startingAddress.city }}</div>
+                                            <div>{{ delivery.productDelivery.startingAddress.postCode }}</div>
+                                            <div>{{ delivery.productDelivery.startingAddress.state }}</div>
+                                        </td>
+                                        <td class="col">
+                                            <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.street }}</div>
+                                            <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.city }}</div>
+                                            <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.postCode }}</div>
+                                            <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.state }}</div>
+                                        </td>
+                                        <td><button mat-button (click)="unloadCargo(delivery.deliveryHistoryId)" mat-raised-button color="primary">Apply action</button> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </tr>
+                    </tbody>
+            </table></div>
+            <div class="row">
+                <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
+                    <thead>
+                        <tr>
+                            <th class="col">Remaining packages</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr >
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="col">Package description</th>
+                                        <th class="col">Total weight</th>
+                                        <th class="col">Starting address </th>
+                                        <th class="col">Destination address</th>
+                                        <th class="col">Package status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let delivery of remainingCargo let i = index" >
+                                            <td class="col">{{ delivery.productDelivery.description }}</td>
+                                            <td class="col">{{ delivery.productDelivery.totalWeight }}</td>
+                                            <td class="col">
+                                                <div>{{ delivery.productDelivery.startingAddress.street }}</div>
+                                                <div>{{ delivery.productDelivery.startingAddress.city }}</div>
+                                                <div>{{ delivery.productDelivery.startingAddress.postCode }}</div>
+                                                <div>{{ delivery.productDelivery.startingAddress.state }}</div>
+                                            </td>
+                                            <td class="col">
+                                                <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.street }}</div>
+                                                <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.city }}</div>
+                                                <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.postCode }}</div>
+                                                <div>{{ delivery.productDelivery.deliverySpecification.deliveryAddress.state }}</div>
+                                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </tr>
+                        </tbody>
+                </table></div>
+</section> 
+<!-- <button mat-button (click)="generateARoute(detailedTransportMovement.transportMovementId)" mat-raised-button color="primary">Generate route</button> -->

@@ -1,5 +1,5 @@
 import { Category } from "./product-category";
-import { ProductState } from "./productState.enum";
+import { StateOfAggregation } from "./productState.enum";
 import { ProductType } from "./productType.enum";
 import { Status } from "./status.enum";
 
@@ -11,7 +11,7 @@ export class Product {
     weight : number;
     amount: number;
     fragile : boolean;
-    state: ProductState;
+    state: StateOfAggregation;
     reserved: Status;
     productType: ProductType;
     category: Category;
@@ -26,7 +26,7 @@ export class Product {
         amount?: number,
         fragile? : boolean,
         reserved?: Status,
-        state?: ProductState,
+        state?: StateOfAggregation,
         productType?: ProductType,
         category?: Category
       ) {

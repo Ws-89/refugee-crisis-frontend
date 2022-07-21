@@ -11,6 +11,7 @@
                 </tr>
             </ng-container>
             <button mat-button routerLink="/product-delivery">Return</button>
-        
+            <button mat-button (click)="update(productDelivery)">Update</button>
+            <button mat-button mat-raised-button color="primary" (click)="finishPreparingCargo(productDelivery.deliveryId)">Cargo completion finished</button>
     </section>
 </div>

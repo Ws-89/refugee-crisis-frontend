@@ -1,6 +1,7 @@
 import { DeliveryAddress } from "./delivery-address";
 import { DeliveryHistory } from "./delivery-history";
 import { TransportMovementSpecification } from "./transport-movement-specification";
+import { TransportStatus } from "./transport-status.enum";
 import { Vehicle } from "./vehicle";
 
 export class TransportMovement {
@@ -13,6 +14,7 @@ export class TransportMovement {
     arrivalTime: Date;
     departureTime: Date;
     vehicle: Vehicle;
+    transportStatus: TransportStatus
 
     constructor(
         transportMovementId?: number,
@@ -23,7 +25,8 @@ export class TransportMovement {
         deliveryAddress?: DeliveryAddress,
         arrivalTime?: Date,
         departureTime?: Date,
-        vehicle?: Vehicle
+        vehicle?: Vehicle,
+        transportStatus?: TransportStatus
     ){
         this.transportMovementId = transportMovementId || null;
         this.wayBills = wayBills || new Array<DeliveryHistory>();
@@ -34,6 +37,7 @@ export class TransportMovement {
         this.arrivalTime = arrivalTime || new Date();
         this.departureTime = departureTime || new Date();
         this.vehicle = vehicle || new Vehicle;
+        this.transportStatus = transportStatus || TransportStatus.InPreparation
     }    
 
 }

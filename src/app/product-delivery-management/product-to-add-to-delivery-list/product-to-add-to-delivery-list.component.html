@@ -86,8 +86,6 @@
                             <td class="col">{{ product.category.categoryName }}</td>
                             <td class="col">{{ product.category.attr1Caption }}</td>
                             <button mat-button (click)="select(product)">Select this product</button>
-                            <button mat-button routerLink='/products/{{product.productId}}'>Edit</button>
-                            <button mat-button (click)="deleteProduct(product.productId)">Delete</button>
                         </tr>
                     </ng-container>
                     

@@ -5,7 +5,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators'
 import { ProductDelivery } from 'src/app/Models/product-delivery';
 import { ProductDeliveryService } from 'src/app/Service/product-delivery.service';
-import { getProductDeliveryList } from 'src/app/Store/Actions/product-delivery.action';
+import { getProductDeliveryList, updateProductDelivery } from 'src/app/Store/Actions/product-delivery.action';
 import { ProductDeliveryState } from '../../Store/Reducers/product-delivery.reducers';
 import { productDelivery } from '../../Store/Selector/product-delivery.selector';
 
@@ -16,8 +16,9 @@ import { productDelivery } from '../../Store/Selector/product-delivery.selector'
 })
 export class ProductDeliveryComponent implements OnInit {
   productDelivery$ = this.store.pipe(select(productDelivery));
+  totalWeight: number;
   
-  constructor(private store: Store<ProductDeliveryState>, private productDeliveryService: ProductDeliveryService) {}
+  constructor(private store: Store<ProductDeliveryState>, private productDeliveryService: ProductDeliveryService, private router: Router) {}
 
   ngOnInit(): void {
     
@@ -31,5 +32,23 @@ export class ProductDeliveryComponent implements OnInit {
       
     )
   }
+
+  finishPreparingCargo(deliveryId: number){
+    this.productDeliveryService.finishCargoCompletion(deliveryId).subscribe(
+      res => {
+        this.store.dispatch(getProductDeliveryList())
+        this.router.navigate(['/product-delivery'])
+      }
+      
+    )
+  }
+
+  update(vehicle: ProductDelivery): void {
+    const p = { ...vehicle };
+    p.totalWeight = this.totalWeight;
+    // dispatch action to update
+    this.store.dispatch(updateProductDelivery(p));
+  }
+
  
 }

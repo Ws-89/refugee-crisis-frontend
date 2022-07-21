@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators'
 import { FoodType } from 'src/app/Models/food-type.enum';
 import { HygienePurpose } from 'src/app/Models/hygiene-purpose.enum';
 import { MedicalPurpose } from 'src/app/Models/medical-purpose.enum';
 import { Product } from 'src/app/Models/product';
-import { ProductState } from 'src/app/Models/productState.enum';
 import { ProductType } from 'src/app/Models/productType.enum';
+import { Status } from 'src/app/Models/status.enum';
 import { AddProductsDialogComponent } from 'src/app/products-management/add-products-dialog/add-products-dialog.component';
-
-import { addProduct,  getProducts, logout } from '../../Store/Actions/product.action';
+import { availableProducts } from 'src/app/Store/Selector/product.selector';
+import { ProductState } from '../../Store/Reducers/product.reducers';
+import { addProduct,  deleteProduct,  getProducts, logout } from '../../Store/Actions/product.action';
+import { StateOfAggregation } from 'src/app/Models/productState.enum';
 
 @Component({
   selector: 'app-products',
@@ -17,6 +21,8 @@ import { addProduct,  getProducts, logout } from '../../Store/Actions/product.ac
   styleUrls: ['./products-form.component.css'],
 })
 export class ProductsFormComponent implements OnInit {
+  done = new Subject();
+  products$ = this.store2.pipe(select(availableProducts(Status.Available)))
   productTypes = ProductType;
   productTypeKeys: any = [];
   foodTypes = FoodType;
@@ -25,15 +31,19 @@ export class ProductsFormComponent implements OnInit {
   hygienePurposeKeys: any = [];
   medicalPurpose = MedicalPurpose;
   medicalPurposeKeys: any = [];
-  productState = ProductState;
+  productState = StateOfAggregation;
   productStateKeys: any = [];
   
   // newProduct: Product = new Product();
   products: Product[] = [];
   title = 'products';
-  constructor(private store: Store, public dialog: MatDialog) {}
+  constructor(private store: Store, public dialog: MatDialog, private store2: Store<ProductState>) {}
 
   ngOnInit(): void {
+    this.products$
+      .pipe(takeUntil(this.done))
+      .subscribe((data) => (this.products = JSON.parse(JSON.stringify(data))));
+    
     this.productTypeKeys = Object.keys(this.productTypes)
     this.foodTypeKeys = Object.keys(this.foodTypes)
     this.hygienePurposeKeys = Object.keys(this.hygienePurpose)
@@ -58,5 +68,12 @@ export class ProductsFormComponent implements OnInit {
   logout(): void {
     this.store.dispatch(logout());
   }
-  
+  deleteProduct(productId: number): void {
+    this.store.dispatch(deleteProduct(productId));
+  }
+
+  ngOnDestroy(): void {
+    this.done.next();
+    this.done.complete();
+  }
 }

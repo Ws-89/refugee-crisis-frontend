@@ -33,6 +33,6 @@ export class ProductDelivery {
         this.deliverySpecification = deliverySpecification || new DeliverySpecification();
         this.startingAddress = startingAddress || new DeliveryAddress();
         this.products = products || new Array<Product>();
-        this.status = Status.Available
+        this.status = status || Status.Available
     }
 }

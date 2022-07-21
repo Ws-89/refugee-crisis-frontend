@@ -62,7 +62,7 @@
                 </tbody>
         </table></div>
 </section> 
-<button mat-button (click)="generateARoute(detailedTransportMovement.transportMovementId)" mat-raised-button color="primary">Change route</button>
+<button mat-button (click)="generateARoute(detailedTransportMovement.transportMovementId)" mat-raised-button color="primary">Generate route</button>
 <div class="row">
     <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
         <thead>
@@ -75,15 +75,18 @@
                 <table>
                     <thead>
                         <tr>
+                            <th class="col">Route order</th>
                             <th class="col">Transport stops at</th>
                             <th class="col">Estimated arrival time</th>
+                            <th class="col">Action</th>
                             <th class="col">Change order up</th>
                             <th class="col">Change order down</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-                        <tr *ngFor="let delivery of detailedTransportMovement.transportMovementSpecifications let i = index" >
+                        <tr *ngFor="let delivery of detailedTransportMovement.transportMovementSpecifications, first as isFirst, last as isLast, let i = index" >
+                            <td>{{ i + 1}}</td>
                             <td class="col">
                                 <div>{{ delivery.deliveryAddress.street }}</div>
                                 <div>{{ delivery.deliveryAddress.city }}</div>
@@ -91,10 +94,10 @@
                                 <div>{{ delivery.deliveryAddress.state }}</div>
                             </td>
                             <td>{{ delivery.arrivalTime }}</td>
-                            <td><button style="margin-top: 3%;" mat-raised-button color="primary" 
-                                (click)="switchOneItemUpOnRouteList(detailedTransportMovement.transportMovementId, delivery.transportMovementSpecificationId)">Change order up</button></td>
+                            <td><button *ngIf="!isFirst" style="margin-top: 3%;" mat-raised-button color="primary" 
+                                (click)="switchOneItemDownOnRouteList(detailedTransportMovement.transportMovementId, delivery.transportMovementSpecificationId)">Previous place</button></td>
                             <td><button style="margin-top: 3%;" mat-raised-button color="primary"
-                                (click)="switchOneItemDownOnRouteList(detailedTransportMovement.transportMovementId, delivery.transportMovementSpecificationId)">Change order down</button></td>
+                                (click)="switchOneItemUpOnRouteList(detailedTransportMovement.transportMovementId, delivery.transportMovementSpecificationId)">Next place</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -102,3 +105,4 @@
             </tr>
             </tbody>
     </table></div>
+    <button mat-button (click)="preparationFinished(detailedTransportMovement.transportMovementId)" mat-raised-button color="primary">Send transport</button>

@@ -23,6 +23,15 @@ export class TransportMovementService {
     );
    }
 
+   getTransportMovementThatStopsAtAddressList(addressId: number): Observable<Array<TransportMovement>>{
+    return this.httpClient.get<Array<TransportMovement>>(`${this.baseUrl}/${this.url}/find-transport-that-stops-at-address/${addressId}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+   }
+
    getTransportMovementDetails(transportId: number): Observable<TransportMovement>{
     return this.httpClient.get<TransportMovement>(`${this.baseUrl}/${this.url}/get/${transportId}`).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -52,6 +61,15 @@ export class TransportMovementService {
 
    generateARoute(transportId: number): Observable<TransportMovement>{
     return this.httpClient.get<TransportMovement>(`${this.baseUrl}/${this.url}/${transportId}/generate-a-route`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+   }
+
+   preparationFinished(transportId: number): Observable<TransportMovement>{
+    return this.httpClient.get<TransportMovement>(`${this.baseUrl}/${this.url}/${transportId}/preparationFinished`).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);
         return throwError(error);

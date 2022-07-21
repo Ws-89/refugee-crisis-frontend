@@ -56,14 +56,16 @@ export class ProductDeliveryFormComponent implements OnInit {
   }
 
   openDeliveryAddressDialog(){
+    
     let dialogRef = this.dialog.open(DeliveryAddressListComponent);
-
+    
     dialogRef.afterClosed().subscribe(result => {
-      this.newProductDelivery = Object.assign({}, this.newProductDelivery, { deliverySpecification: { 
-        deliveryAddress: {...result}
-      }});
+
+      this.newDeliverySpecification.deliveryAddress = result;
+      this.newProductDelivery.deliverySpecification = this.newDeliverySpecification
       this.isDeliveryAddresPicked = true;
     })
+   
   }
 
   openStartingAddressDialog(){

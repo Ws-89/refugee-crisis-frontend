@@ -5,7 +5,7 @@ import { FoodType } from '../../Models/food-type.enum';
 import { HygienePurpose } from '../../Models/hygiene-purpose.enum';
 import { MedicalPurpose } from '../../Models/medical-purpose.enum';
 import { Product } from '../../Models/product';
-import { ProductState } from '../../Models/productState.enum';
+import { StateOfAggregation } from '../../Models/productState.enum';
 import { ProductType } from '../../Models/productType.enum';
 import { addProduct, getProducts, logout } from '../../Store/Actions/product.action';
 
@@ -23,7 +23,7 @@ export class AddProductsDialogComponent implements OnInit {
   hygienePurposeKeys: any = [];
   medicalPurpose = MedicalPurpose;
   medicalPurposeKeys: any = [];
-  productState = ProductState;
+  productState = StateOfAggregation;
   productStateKeys: any = [];
   
   newProduct: Product = new Product();
@@ -47,7 +47,7 @@ export class AddProductsDialogComponent implements OnInit {
 
   addNewProducts(): void {
     this.store.dispatch(addProduct(this.newProduct))
-    this.newProduct = Object.assign({}, new Product)
+    this.dialogRef.close();
   }
 }
 

@@ -5,8 +5,9 @@ import { takeUntil } from 'rxjs/operators'
 import { Subject } from 'rxjs';
 import { TransportMovement } from 'src/app/Models/transport-movement';
 import { TransportMovementState } from 'src/app/Store/Reducers/transport-movement.reducers';
-import { transportMovementSelector } from 'src/app/Store/Selector/transport-movement.selector';
+import { transportMovementSelector, transportMovementStatus } from 'src/app/Store/Selector/transport-movement.selector';
 import { deleteTransportMovement } from 'src/app/Store/Actions/transport-movement.action';
+import { TransportStatus } from 'src/app/Models/transport-status.enum';
 
 @Component({
   selector: 'app-transport-movement-list',
@@ -14,7 +15,7 @@ import { deleteTransportMovement } from 'src/app/Store/Actions/transport-movemen
   styleUrls: ['./transport-movement-list.component.css']
 })
 export class TransportMovementListComponent implements OnInit {
-  transportMovements$ = this.store.pipe(select(transportMovementSelector))
+  transportMovements$ = this.store.pipe(select(transportMovementStatus(TransportStatus.InPreparation)))
   transportMovements: TransportMovement[];
   done = new Subject();
   selectedIndex: number = null;

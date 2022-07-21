@@ -1,5 +1,6 @@
 import { createSelector } from "@ngrx/store";
 import { TransportMovement } from "src/app/Models/transport-movement";
+import { TransportStatus } from "src/app/Models/transport-status.enum";
 import { TransportMovementState } from "../Reducers/transport-movement.reducers";
 
 export const transportMovementSelector = createSelector (
@@ -13,6 +14,11 @@ export const transportMovementSelector = createSelector (
 //   createSelector(productSelector, (products) => {
 //   return products.filter((product: Product) => product.weight >= weight);
 // });
+
+export const transportMovementStatus = (status: TransportStatus) =>
+createSelector(transportMovementSelector, (transportMovementList) => {
+return transportMovementList.filter((transportMovement: TransportMovement) => transportMovement.transportStatus == status);
+});
 
 const routeParams = createSelector(
   (state: TransportMovementState) => state.router.state,

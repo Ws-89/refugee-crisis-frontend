@@ -51,6 +51,17 @@ export class ProductDeliveryService {
     );
   }
 
+  finishCargoCompletion(deliveryId: number): Observable<String> {
+    return this.http.get<String>(`${this.baseUrl}/${this.url}/finish-cargo-completion/${deliveryId}`)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
+
+
 
   deleteProductDelivery(productDeliveryId: number) {
     return this.http.delete(`${this.baseUrl}/${this.url}/delete/${productDeliveryId}`).pipe(

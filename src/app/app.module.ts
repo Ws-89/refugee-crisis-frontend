@@ -53,8 +53,9 @@ import { TransportMovementListComponent } from './transport-movement-management/
 import { TransportMovementEffects } from './Store/Effects/transport-movement.effects';
 import { TransportDetailsComponent } from './transport-movement-management/transport-details/transport-details.component';
 import { AddTransportSpecificationDialogComponent } from './transport-movement-management/add-transport-specification-dialog/add-transport-specification-dialog.component';
-// import { handlingEventSelector } from './Store/Selector/handling-events.selector';
-// import { HandlingEventEffects } from './Store/Effects/handling-events.effects';
+import { CargoManagementFormComponent } from './cargo-management/cargo-management-form/cargo-management-form.component';
+import { CargoTransportMovementListComponent } from './cargo-management/cargo-transport-movement-list/cargo-transport-movement-list.component';
+import { CargoTransportDetailsComponent } from './cargo-management/cargo-transport-details/cargo-transport-details.component';
 
 
 
@@ -82,9 +83,13 @@ import { AddTransportSpecificationDialogComponent } from './transport-movement-m
     TransportMovementListComponent,
     TransportDetailsComponent,
     AddTransportSpecificationDialogComponent,
+    CargoManagementFormComponent,
+    CargoTransportMovementListComponent,
+    CargoTransportDetailsComponent,
+
+   
    
   ],
-  // entryComponents: [ModalFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

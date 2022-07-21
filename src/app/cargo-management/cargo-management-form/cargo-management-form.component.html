@@ -1,0 +1,43 @@
+<button mat-button (click)="findAllTransportThatStopsAtAddress()">Select address</button>
+<!-- <app-cargo-transport-movement-list></app-cargo-transport-movement-list> -->
+<div class="container">
+    <div class="row">
+        <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
+            <thead>
+                <tr>
+                    <th class="col">Transport ID</th>
+                    <th class="col">Starting address</th>
+                    <th class="col">Destination address</th>
+                    <th class="col">Actual load</th>
+                    <th class="col">Capacity</th>
+                    <th class="col">Vehicle model</th>
+                    <th class="col">Details</th>
+                </tr>
+            </thead>
+            <tbody >
+                <ng-container  *ngFor="let transportMovement of transportMovementList; let i = index">
+                    <tr>
+                        <td class="col">{{ transportMovement.transportMovementId }}</td>
+                        <td class="col">
+                            <div>{{ transportMovement.startingAddress.street }}</div>
+                            <div>{{ transportMovement.startingAddress.city }}</div>
+                            <div>{{ transportMovement.startingAddress.postCode }}</div>
+                            <div>{{ transportMovement.startingAddress.state }}</div>
+                        </td>
+                        <td class="col">
+                            <div>{{ transportMovement.deliveryAddress.street }}</div>
+                            <div>{{ transportMovement.deliveryAddress.city }}</div>
+                            <div>{{ transportMovement.deliveryAddress.postCode }}</div>
+                            <div>{{ transportMovement.deliveryAddress.state }}</div>
+                        </td>
+                        <td class="col">{{ transportMovement.weightOfTheGoods }}</td>
+                        <td class="col">{{ transportMovement.vehicle.capacity }}</td>
+                        <td class="col">{{ transportMovement.vehicle.model }}</td>
+                        <td class="col"><button mat-button routerLink="/cargo-management/{{ transportMovement.transportMovementId }}">Transport details</button></td>
+                    </tr>
+                </ng-container>
+                
+            </tbody>
+        </table>
+    </div>
+</div>

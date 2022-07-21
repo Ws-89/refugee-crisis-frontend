@@ -17,11 +17,17 @@
           </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Arrival time</mat-label>
-            <input name='expirationDate' [(ngModel)]="newDeliverySpecification.arrivalTime" matInput [matDatepicker]="picker">
+            <mat-label>Arrival date</mat-label>
+            <input name='expirationDate' [(ngModel)]="newDeliverySpecification.arrivalTime" matInput [matDatepicker]="picker" #arrivalDateControl="ngModel" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Date of admission</mat-label>
+          <input name='expirationDate' [(ngModel)]="newProductDelivery.deliverySpecification.departureTime" matInput [matDatepicker]="picker2" #admissionDateControl="ngModel" required>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
         <div>
           <button mat-raised-button (click)="openAddAddressDialog()">Add address</button>
         </div>
@@ -34,7 +40,7 @@
         </div>
         <div *ngIf="isDeliveryAddresPicked == true"><button mat-raised-button color="primary" (click)="removeDeliveryAddress()" style="margin-top: 3%;">Remove delivery address</button></div>
         <div>
-          <button (click)="addNewProductDelivery()" style="margin-top: 3%;" mat-raised-button color="primary">Add Product delivery</button>
+          <button [disabled]="!isStartAddressPicked || !isDeliveryAddresPicked" (click)="addNewProductDelivery()" style="margin-top: 3%;" mat-raised-button color="primary">Add Product delivery</button>
         </div>
         
       </form>

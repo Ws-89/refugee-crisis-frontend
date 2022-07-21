@@ -4,29 +4,58 @@
         <form class="example-form">
             <mat-form-field appearance="fill">
                 <mat-label>Vehicle type</mat-label>
-                <mat-select [(ngModel)]="newVehicle.vehicleCategory" [ngModelOptions]="{standalone: true}">
+                <mat-select [(ngModel)]="newVehicle.vehicleCategory" [ngModelOptions]="{standalone: true}" #vehicleCategoryControl="ngModel" required>
                     <mat-option *ngFor="let item of vehicleCategoryKeys" [value]="item" >{{item}}</mat-option>
-                </mat-select>
+                </mat-select><div *ngIf="vehicleCategoryControl.invalid && (vehicleCategoryControl.dirty || vehicleCategoryControl.touched)" class="alert">
+                    <div *ngIf="vehicleCategoryControl.errors?.required">
+                        <small style="color:red">Vehicle category is required</small>
+                     </div> 
+                     </div>
             </mat-form-field>
                 <mat-form-field class="example-full-width">
                     <mat-label>Brand</mat-label>
-                    <input name='name' [(ngModel)]="newVehicle.brand" matInput>
+                    <input name='name' [(ngModel)]="newVehicle.brand" matInput #vehicleBrandControl="ngModel" required>
+                    <div *ngIf="vehicleBrandControl.invalid && (vehicleBrandControl.dirty || vehicleBrandControl.touched)" class="alert">
+                        <div *ngIf="vehicleBrandControl.errors?.required">
+                            <small style="color:red">Vehicle brand field is required</small>
+                         </div> 
+                         </div>
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
                     <mat-label>Model</mat-label>
-                    <input name='name' [(ngModel)]="newVehicle.model" matInput>
+                    <input name='name' [(ngModel)]="newVehicle.model" matInput #vehicleModelControl="ngModel" required>
+                    <div *ngIf="vehicleModelControl.invalid && (vehicleModelControl.dirty || vehicleModelControl.touched)" class="alert">
+                        <div *ngIf="vehicleModelControl.errors?.required">
+                            <small style="color:red">Vehicle model field is required</small>
+                         </div> 
+                         </div>
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
                     <mat-label>Engine</mat-label>
-                    <input name='name' [(ngModel)]="newVehicle.engine" matInput>
+                    <input name='name' [(ngModel)]="newVehicle.engine" matInput #vehicleEngineControl="ngModel" required>
+                    <div *ngIf="vehicleEngineControl.invalid && (vehicleEngineControl.dirty || vehicleEngineControl.touched)" class="alert">
+                        <div *ngIf="vehicleEngineControl.errors?.required">
+                            <small style="color:red">Vehicle engine field is required</small>
+                         </div> 
+                         </div>
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
                     <mat-label>Capacity</mat-label>
-                    <input name='name' [(ngModel)]="newVehicle.capacity" matInput>
+                    <input name='name' type="number" [(ngModel)]="newVehicle.capacity" matInput #vehicleCapacityControl="ngModel" required>
+                    <div *ngIf="vehicleCapacityControl.invalid && (vehicleCapacityControl.dirty || vehicleCapacityControl.touched)" class="alert">
+                        <div *ngIf="vehicleCapacityControl.errors?.required">
+                            <small style="color:red">Vehicle capacity field is required</small>
+                         </div> 
+                         </div>
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
                     <mat-label>License plate</mat-label>
-                    <input name='name' [(ngModel)]="newVehicle.licensePlate" matInput>
+                    <input name='name' [(ngModel)]="newVehicle.licensePlate" matInput #vehicleLicensePlateControl="ngModel" required>
+                    <div *ngIf="vehicleLicensePlateControl.invalid && (vehicleLicensePlateControl.dirty || vehicleLicensePlateControl.touched)" class="alert">
+                        <div *ngIf="vehicleLicensePlateControl.errors?.required">
+                            <small style="color:red">Vehicle license plate field is required</small>
+                         </div> 
+                         </div>
                 </mat-form-field>
                 <div>
                     <button (click)="addNewVehicle()" mat-raised-button color="primary">Add

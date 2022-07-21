@@ -14,7 +14,7 @@ import { availableProductsDelivery, productDeliverySelector } from 'src/app/Stor
   styleUrls: ['./product-transport.component.css']
 })
 export class ProductTransportComponent implements OnInit {
-  productDeliveries$ = this.store.pipe(select(availableProductsDelivery(Status.Available)));
+  productDeliveries$ = this.store.pipe(select(availableProductsDelivery(Status.Reserved)));
   productDeliveries: ProductDelivery[];
   done = new Subject();
   selectedIndex: number = null;

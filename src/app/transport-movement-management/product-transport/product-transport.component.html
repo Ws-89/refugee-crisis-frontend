@@ -40,11 +40,6 @@
                     <tr [ngClass] = "{'one': productDelivery.deliveryId == selectedDeliveryIndex}">
                         <td class="col">{{ productDelivery.description }}</td>
                         <td class="col">{{ productDelivery.totalWeight }}</td>
-                        <button mat-button (click)="delete(productDelivery.deliveryId)">Delete</button>
-                        <button mat-button *ngIf="i === selectedIndex" (click)="cancelEdit()">Cancel</button>
-                        <button mat-icon-button>
-                            <mat-icon (click)="enableEdit(productDelivery, i)">edit</mat-icon>
-                        </button>
                         <button mat-button (click)="selectDelivery(productDelivery)">Select this product</button>
                     </tr>
                 </ng-container>

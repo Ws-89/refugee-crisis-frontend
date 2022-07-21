@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class TransportDetailsComponent implements OnInit {
   // details$ = this.transportMovementService.getTransportMovementDetails(this.route.snapshot.params['id'])
 
   constructor(private store: Store<TransportMovementState>,
-               private route: ActivatedRoute, private transportMovementService: TransportMovementService) { }
+               private route: ActivatedRoute, private transportMovementService: TransportMovementService, private router: Router) { }
 
   ngOnInit(): void {    
     this.transportMovementService.getTransportMovementDetails(this.route.snapshot.params['id']).subscribe(result => {
@@ -52,6 +52,13 @@ export class TransportDetailsComponent implements OnInit {
       this.detailedTransportMovement = result;
     })
   }
+  
+  preparationFinished(transportId: number){
+    this.transportMovementService.preparationFinished(transportId).subscribe(result => {
+      this.router.navigate(['/transport-movement'])
+    })
+  }
+
 
   ngOnDestroy(){
   }

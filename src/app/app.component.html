@@ -1,38 +1,82 @@
-<!-- <router-outlet></router-outlet> -->
-<mat-toolbar class="mat-elevation-z8">
-    <button
-      mat-icon-button
-      *ngIf="sidenav.mode === 'over'"
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
-      <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
-    </button>
-    Responsive side navigation
-  </mat-toolbar>
-  
-  <mat-sidenav-container>
-    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-      <button mat-button class="menu-button" routerLink="/products">
-        <mat-icon>category</mat-icon>
-        <span>Products</span>
-      </button>
-      <button mat-button class="menu-button" routerLink="/product-delivery">
-        <mat-icon>category</mat-icon>
-        <span>Product delivery</span>
-      </button>
-      <button mat-button class="menu-button" routerLink="/vehicles">
-        <mat-icon>category</mat-icon>
-        <span>Vehicles</span>
-      </button>
-      <button mat-button class="menu-button" routerLink="/transport-movement">
-        <mat-icon>category</mat-icon>
-        <span>Organize transport</span>
-      </button>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <div class="content mat-elevation-z8">
-        <router-outlet></router-outlet>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand">Transport organizer</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" routerLink="/products">Products</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+        </div>
       </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+    <!-- <mat-toolbar class="mat-elevation-z8">
+      <button
+        mat-icon-button
+        *ngIf="sidenav.mode === 'over'"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+        <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+      </button>
+      Responsive side navigation
+    </mat-toolbar> -->
+    
+    <!-- <mat-sidenav-container>
+      <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+        <button mat-button class="menu-button" routerLink="/products">
+          <mat-icon>category</mat-icon>
+          <span>Products</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/product-delivery">
+          <mat-icon>category</mat-icon>
+          <span>Product delivery</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/vehicles">
+          <mat-icon>category</mat-icon>
+          <span>Vehicles</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/transport-movement">
+          <mat-icon>category</mat-icon>
+          <span>Organize transport</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/cargo-management">
+          <mat-icon>category</mat-icon>
+          <span>Cargo management</span>
+        </button>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <div class="content mat-elevation-z8">
+          
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  </body>
+</html>
