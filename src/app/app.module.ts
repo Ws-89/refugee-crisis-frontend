@@ -22,13 +22,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import { MatTableModule } from "@angular/material/table";
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
-import { productReducer } from './Store/Reducers/product.reducers';
-import { ProductListComponent } from './products-management/product-list/product-list.component';
-import { ProductEffects } from './Store/Effects/product.effects';
 import { ProductComponent } from './products-management/product/product.component';
 import { DeliveryAddressEffects } from './Store/Effects/delivery-address.effects';
-import { deliveryAddressReducer } from './Store/Reducers/delivery-address.reducers';
-import { productDeliveryReducer } from './Store/Reducers/product-delivery.reducers';
 import { ProductDeliveryListComponent } from './product-delivery-management/product-delivery-list/product-delivery-list.component';
 import { DeliveryAddressListComponent } from './product-delivery-management/delivery-address-list/delivery-address-list.component';
 import { DeliveryAddressesComponent } from './product-delivery-management/delivery-addresses/delivery-addresses.component';
@@ -63,7 +58,6 @@ import { CargoTransportDetailsComponent } from './cargo-management/cargo-transpo
   declarations: [
     AppComponent,
     ProductsFormComponent,
-    ProductListComponent,
     ProductComponent,
     ProductDeliveryListComponent,
     DeliveryAddressListComponent,
@@ -117,7 +111,9 @@ import { CargoTransportDetailsComponent } from './cargo-management/cargo-transpo
         strictActionWithinNgZone: true,
         strictActionTypeUniqueness: true,
       }}),
-    EffectsModule.forRoot([ProductEffects, DeliveryAddressEffects, ProductDeliveryEffects, VehicleEffects, TransportMovementEffects]),
+    EffectsModule.forRoot([
+      // ProductEffects, 
+      DeliveryAddressEffects, ProductDeliveryEffects, VehicleEffects, TransportMovementEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

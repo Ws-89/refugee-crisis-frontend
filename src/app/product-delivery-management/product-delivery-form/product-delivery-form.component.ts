@@ -12,7 +12,7 @@ import { MaxiumCapacityState } from 'src/app/Store/Reducers/vehicle.reducers';
 import { addDeliveryAddress, getDeliveryAddresses } from 'src/app/Store/Actions/delivery-address.action';
 import { DeliveryAddressListComponent } from '../delivery-address-list/delivery-address-list.component';
 import { DeliveryAddress } from 'src/app/Models/delivery-address';
-import { getProducts } from 'src/app/Store/Actions/product.action';
+// import { getProducts } from 'src/app/Store/Actions/product.action';
 import { ProductDeliveryService } from 'src/app/Service/product-delivery.service';
 
 
@@ -93,7 +93,7 @@ export class ProductDeliveryFormComponent implements OnInit {
   }
 
   getAllProducts(): void {
-    this.store.dispatch(getProducts())
+    // this.store.dispatch(getProducts())
   }
   
 

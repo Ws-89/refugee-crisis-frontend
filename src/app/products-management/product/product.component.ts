@@ -1,9 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, ɵɵsetComponentScope } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { catchError, map, startWith } from 'rxjs/operators';
+import { CustomResponse } from 'src/app/Models/custom-response';
 import { Product } from 'src/app/Models/product';
-import { updateProduct } from 'src/app/Store/Actions/product.action';
-import { ProductState } from '../../Store/Reducers/product.reducers';
-import { product } from '../../Store/Selector/product.selector';
+import { ProductService } from 'src/app/Service/product.service';
+// import { updateProduct } from 'src/app/Store/Actions/product.action';
+// import { ProductState } from '../../Store/Reducers/product.reducers';
+// import { product } from '../../Store/Selector/product.selector';
 
 @Component({
   selector: 'app-product',
@@ -11,13 +17,22 @@ import { product } from '../../Store/Selector/product.selector';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  product$ = this.store.pipe(select(product));
+  product$: Observable<{ appState: string, appData?: CustomResponse<Product>, error?: HttpErrorResponse }>;
   editFlag: boolean = false;
   weight: number = 0;
 
-  constructor(private store: Store<ProductState>) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.product$ = this.productService.getProduct$(this.route.snapshot.params['id']).pipe(
+      map(response => {
+        console.log(response);
+        return ({appState: 'APP_LOADED', appData: response})
+      }),
+      startWith({ appState: 'APP_LOADING'}),
+      catchError(( error: HttpErrorResponse ) => {
+        return of({ appState: 'APP_ERROR', error })}
+    ))
     
   }
 
@@ -31,15 +46,21 @@ export class ProductComponent implements OnInit {
   }
 
 
-  // update the earning from the input then dispatch update action
+
   update(product: Product): void {
     const p = { ...product };
     p.weight = this.weight;
-    // dispatch action to update
-    this.store.dispatch(updateProduct(p));
+    console.log(p, '?')
+    this.product$ = this.productService.updateProduct$(p).pipe(
+      map(response => {
+        console.log(response);
+        return ({appState: 'APP_LOADED', appData: response})
+      }),
+      startWith({ appState: 'APP_LOADING'}),
+      catchError(( error: HttpErrorResponse ) => {
+        return of({ appState: 'APP_ERROR', error })}
+    ))
   }
 
-  // deleteProduct(productId: number): void {
-  //   this.store.dispatch(deleteProduct(productId));
-  // }
+
 }

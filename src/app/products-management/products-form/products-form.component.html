@@ -1,135 +1,77 @@
-<!-- <div style="padding: 20px;">
-    <div style="padding: 20px;">
-        <h2>Create product</h2>
-        <form class="example-form">
-            <mat-form-field appearance="fill">
-                <mat-label>Product type</mat-label>
-                <mat-select [(ngModel)]="newProduct.category.categoryName" [ngModelOptions]="{standalone: true}">
-                    <mat-option *ngFor="let item of productTypeKeys" [value]="item" >{{item}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            <div *ngIf="newProduct.category.categoryName == 'Food'">
-                <mat-form-field appearance="fill">
-                    <mat-label>Food group</mat-label>
-                    <mat-select [(ngModel)]="newProduct.category.attr1Caption" [ngModelOptions]="{standalone: true}">
-                        <mat-option *ngFor="let item of foodTypeKeys" [value]="item" >{{item}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <div *ngIf="newProduct.category.categoryName == 'Medical'">
-                <mat-form-field appearance="fill">
-                    <mat-label>Medical purpose</mat-label>
-                    <mat-select [(ngModel)]="newProduct.category.attr1Caption" [ngModelOptions]="{standalone: true}">
-                        <mat-option *ngFor="let item of medicalPurposeKeys" [value]="item" >{{item}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <div *ngIf="newProduct.category.categoryName == 'Hygiene'">
-                <mat-form-field appearance="fill">
-                    <mat-label>Hygiene purpose</mat-label>
-                    <mat-select [(ngModel)]="newProduct.category.attr1Caption" [ngModelOptions]="{standalone: true}">
-                        <mat-option *ngFor="let item of hygienePurposeKeys" [value]="item" >{{item}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Is fragile?</mat-label>
-                    <mat-select [(ngModel)]="newProduct.fragile" [ngModelOptions]="{standalone: true}">
-                      <mat-option value="true">True</mat-option>
-                      <mat-option value="false">False</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Product state</mat-label>
-                    <mat-select [(ngModel)]="newProduct.state" [ngModelOptions]="{standalone: true}">
-                        <mat-option *ngFor="let item of productStateKeys" [value]="item" >{{item}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <mat-form-field class="example-full-width">
-                <mat-label>Product name</mat-label>
-                <input name='name' [(ngModel)]="newProduct.name" matInput>
-            </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Transportation instruction</mat-label>
-                <input name='name' [(ngModel)]="newProduct.category.attr2Caption" matInput>
-            </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Product additional description</mat-label>
-                <input name='name' [(ngModel)]="newProduct.description" matInput>
-            </mat-form-field>
+<ng-container *ngIf="(productsState$ | async ) as state" [ngSwitch]="state.appState">
+<div class="container"></div>
+    
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Total weight</mat-label>
-                <input name='weight' [(ngModel)]="newProduct.weight" type='number' matInput placeholder="In kg">
-            </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Ammount</mat-label>
-                <input name='amount' [(ngModel)]="newProduct.amount" type='number' matInput placeholder="If countable">
-            </mat-form-field>
-            
-            <mat-form-field appearance="fill">
-                <mat-label>Expiration date</mat-label>
-                <input name='expirationDate' [(ngModel)]="newProduct.expirationDate" matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <div>
-                <button (click)="addNewProducts()" mat-raised-button color="primary">Add
-                    Product</button>
-            </div>
-        </form>
-    </div> -->
-    <div>
-        
-<body>
     <div class="container">
         <div class="row">
-            <table class="col-xs-7 table-bordered table-striped table-condensed table-fixed">
-                <thead>
-                    <tr>
-                        <th class="col">Product name</th>
-                        <th class="col">Expiration date</th>
-                        <th class="col">Description</th>
-                        <th class="col">Weight</th>
-                        <th class="col">Amount</th>
-                        <th class="col">Fragile</th>
-                        <th class="col">State</th>
-                        <th class="col">Category</th>
-                        <th class="col">Purpose</th>
-                    </tr>
-                </thead>
-                <tbody >
-                    <ng-container  *ngFor="let product of products$ | async; let i = index">
-                        <tr >
-                            <td class="col">{{ product.name }}</td>
-                            <td class="col">{{ product.expirationDate }}</td>
-                            <td class="col">{{ product.description }}</td>
-                            <td class="col">{{ product.weight }}</td>
-                            <td class="col">{{ product.amount }}</td>
-                            <td class="col">{{ product.fragile }}</td>
-                            <td class="col">{{ product.state }}</td>
-                            <td class="col">{{ product.category.categoryName }}</td>
-                            <td class="col">{{ product.category.attr1Caption }}</td>
-                            <button mat-button routerLink='/products/{{product.productId}}'>Edit</button>
-                            <button mat-button (click)="deleteProduct(product.productId)">Delete</button>
-                        </tr>
-                    </ng-container>
+            <div class="col-md-12 mt3">
+                <ng-container *ngSwitchCase="'APP_ERROR'">{{ state.error | json }}</ng-container>
+                <ng-container *ngSwitchCase="'APP_LOADING'">
+                    <div class="d-flex justify-content-center mt-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="'APP_LOADED'">
+                    <h1>Product list</h1>
+                    <table class="table table-bordered table-striped table-condensed table-fixed">
+                        <thead>
+                            <tr>
+                                <th class="col">Product name</th>
+                                <th class="col">Expiration date</th>
+                                <th class="col">Description</th>
+                                <th class="col">Weight</th>
+                                <th class="col">Amount</th>
+                                <th class="col">Fragile</th>
+                                <th class="col">State</th>
+                                <th class="col">Category</th>
+                                <th class="col">Purpose</th>
+                                <th class="col">Edit</th>
+                                <th class="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                                
+                                <tr *ngFor="let product of state.appData.data.page.content; let i = index;">
+                                    <td class="col">{{ product.name }}</td>
+                                    <td class="col">{{ product.expirationDate }}</td>
+                                    <td class="col">{{ product.description }}</td>
+                                    <td class="col">{{ product.weight }} kg</td>
+                                    <td class="col">{{ product.amount }}</td>
+                                    <td class="col">{{ product.fragile }}</td>
+                                    <td class="col">{{ product.state }}</td>
+                                    <td class="col">{{ product.category.categoryName }}</td>
+                                    <td class="col">{{ product.category.attr1Caption }}</td>
+                                    <td><button mat-button routerLink='/products/{{product.productId}}'>Edit</button></td>
+                                    <td><button mat-button (click)="deleteProduct(product.productId)">Delete</button></td>
+                                </tr>  
+                        </tbody>
+                    </table>
                     
-                </tbody>
-            </table>
+                    <div *ngIf="state.appData.data.page.content.length < 1" class="alert alert-secondary" role="alert">
+                        No products found
+                      </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                          <li class="page-item pointer" [ngClass]="0 == (currentPage$ | async ) ? ' disabled' : ''"><a (click)="goToNextOrPrevious('backward')" class="page-link ">&laquo; Previous</a></li>
+                          <li *ngFor="let page of [].constructor(state.appData.data.page.totalPages); let i = index" [ngClass]="i == (currentPage$ | async ) ? ' active' : ''" class="page-item pointer"><a (click)="goToPage('',i)" class="page-link ">{{i + 1}}</a></li>
+                          <li class="page-item pointer" [ngClass]="state.appData.data.page.last == true ? ' disabled' : ''"><a (click)="goToNextOrPrevious('forward')" class="page-link ">Next &raquo;</a></li>
+                        </ul>
+                      </nav>
+                
+            
+                <div>
+                    <button mat-raised-button (click)="openProductDialog()" style="margin: 1%;" color="primary">Add product</button>
+                
+                </div>
+                </ng-container>
+    
+            </div>
         </div>
     </div>
-    <div>
-        <button mat-raised-button (click)="openProductDialog()" style="margin: 1%;" color="primary">Add product</button>
-      </div>
-</body>
 
-   
-   
+</ng-container>

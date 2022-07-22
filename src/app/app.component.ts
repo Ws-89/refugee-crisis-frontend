@@ -30,28 +30,28 @@ export class AppComponent implements OnInit {
     // this.getAllDeliveryAddresses();
   }
 
-  ngAfterViewInit() {
-    this.observer.observe(['(max-width: 800px)'])
-      .subscribe((res) => {
-        if (res.matches) {
-          this.sidenav.mode = 'over';
-          this.sidenav.close();
-        } else {
-          this.sidenav.mode = 'side';
-          this.sidenav.open();
-        }
-      });
-      this.router.events
-      .pipe(
+  // ngAfterViewInit() {
+  //   this.observer.observe(['(max-width: 800px)'])
+  //     .subscribe((res) => {
+  //       if (res.matches) {
+  //         this.sidenav.mode = 'over';
+  //         this.sidenav.close();
+  //       } else {
+  //         this.sidenav.mode = 'side';
+  //         this.sidenav.open();
+  //       }
+  //     });
+  //     this.router.events
+  //     .pipe(
        
-        filter((e) => e instanceof NavigationEnd)
-      )
-      .subscribe(() => {
-        if (this.sidenav.mode === 'over') {
-          this.sidenav.close();
-        }
-      });
-  }
+  //       filter((e) => e instanceof NavigationEnd)
+  //     )
+  //     .subscribe(() => {
+  //       if (this.sidenav.mode === 'over') {
+  //         this.sidenav.close();
+  //       }
+  //     });
+  // }
 
   // getAllDeliveryAddresses(): void {
   //   this.store.dispatch(getDeliveryAddresses());
